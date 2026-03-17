@@ -6,6 +6,8 @@ You can host this guideline wherever you like as this system builds a static HTM
 
 Tip: this links to the GitHub location. If you hit cmd+shift+s on your keyboard, it will trigger a download.
 
+[View the live brand guidelines](https://tokyo-concierge-brand-guide.netlify.app/)
+
 ## Getting Started
 
 These instructions will help you set up the project locally.
