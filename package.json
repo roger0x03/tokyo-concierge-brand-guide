@@ -1,0 +1,64 @@
+{
+  "name": "navi-monorepo",
+  "version": "0.0.1",
+  "private": true,
+  "author": {
+    "name": "Set Studio",
+    "url": "https://set.studio/"
+  },
+  "license": "MIT",
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ],
+  "scripts": {
+    "build": "dotenv turbo run build",
+    "dev": "dotenv turbo run dev",
+    "lint": "dotenv turbo run lint",
+    "format": "prettier --write \"**/*.{ts,tsx,md,css,astro}\"",
+    "prepare": "husky install && chmod +x .husky/pre-commit",
+    "start": "yarn dev",
+    "scaffold": "node ./scripts/scaffold-pattern.mjs",
+    "validate:tokens": "sugarcube validate",
+    "tokens": "sugarcube generate"
+  },
+  "devDependencies": {
+    "@clack/prompts": "^1.0.0",
+    "dotenv-cli": "latest",
+    "eslint": "^8.57.0",
+    "husky": "^8.0.0",
+    "lint-staged": "^16.2.7",
+    "prettier": "^3.3.2",
+    "prettier-plugin-astro": "^0.14.0",
+    "turbo": "^2.0.4"
+  },
+  "lint-staged": {
+    "packages/ui/**/*.{js,jsx,ts,tsx}": [
+      "eslint --fix",
+      "prettier --write"
+    ],
+    "**/*.d.ts": "echo 'Skipping .d.ts files'",
+    "**/*.astro": [
+      "prettier --write"
+    ],
+    "**/*.json": [
+      "prettier --write"
+    ],
+    "**/*.{md}": [
+      "prettier --write"
+    ],
+    "**/*.css": [
+      "prettier --write"
+    ],
+    "tsconfig.json": "prettier --write",
+    "tsconfig.lint.json": "prettier --write"
+  },
+  "packageManager": "yarn@1.22.22",
+  "engines": {
+    "node": ">=22"
+  },
+  "dependencies": {
+    "@sugarcube-sh/cli": "^0.0.3",
+    "chokidar-cli": "^3.0.0"
+  }
+}

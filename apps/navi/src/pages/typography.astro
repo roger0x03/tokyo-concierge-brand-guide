@@ -1,0 +1,176 @@
+---
+import NaviPatternLibrary from '@layouts/NaviPatternLibrary.astro';
+import NaviPreviewFrame from '@components/NaviPreviewFrame.astro';
+import NaviOverflow from '@components/NaviOverflow.astro';
+import NaviToolbar from '@components/NaviToolbar.astro';
+import textSizes from '@repo/design-tokens/text-sizes.json';
+import textLeading from '@repo/design-tokens/text-leading.json';
+import textWeights from '@repo/design-tokens/text-weights.json';
+import fonts from '@repo/design-tokens/fonts.json';
+import { getValidEntries } from '@utils/validEntries';
+
+// Text sizes
+const textSizesData = textSizes.size || {};
+
+// Grab the description
+const textSizesDescription = textSizes.size.$description;
+
+// Filter out keys likes $type or $description
+const textSizesEntries = getValidEntries(textSizesData);
+
+// Leading
+const textLeadingData = textLeading.leading || {};
+
+// Filter out keys likes $type or $description
+const textLeadingEntries = getValidEntries(textLeadingData);
+
+// Weights
+const textWeightsData = textWeights.font.weight || {};
+
+// Filter out keys likes $type or $description
+const textWeightsEntries = getValidEntries(textWeightsData);
+
+// Fonts
+const fontsData = fonts.font || {};
+
+// Filter out keys likes $type or $description
+const fontsEntries = getValidEntries(fontsData);
+
+// Table of contents
+const toc = [
+  { text: 'Sizes', slug: 'sizes' },
+  { text: 'Leading', slug: 'leading' },
+  { text: 'Weights', slug: 'weights' },
+  { text: 'Fonts', slug: 'fonts' },
+];
+---
+
+<NaviPatternLibrary title="Typography" toc={toc}>
+  <NaviToolbar />
+
+  {textSizes && <h2 id="sizes">Text Sizes</h2>}
+
+  {textSizesDescription && <p style="margin-bottom: 2rem;">{textSizesDescription}</p>}
+
+  <NaviPreviewFrame src="/previews/text-sizes?&showToolbar=false" />
+
+  <h2>Usage</h2>
+
+  <NaviOverflow>
+    <table>
+      <thead>
+        <tr>
+          <th>Utility Class</th>
+          <th>CSS Custom Property</th>
+        </tr>
+      </thead>
+      <tbody>
+        {
+          textSizesEntries.map(([name]) => (
+            <tr>
+              <td>
+                <code>.text-{name}</code>
+              </td>
+              <td>
+                <code>var(--size-{name})</code>
+              </td>
+            </tr>
+          ))
+        }
+      </tbody>
+    </table>
+  </NaviOverflow>
+
+  <h2 id="leading">Leading (line height)</h2>
+
+  <NaviPreviewFrame src="/previews/text-leading?&showToolbar=false" />
+
+  <h2>Usage</h2>
+
+  <NaviOverflow>
+    <table>
+      <thead>
+        <tr>
+          <th>Utility Class</th>
+          <th>CSS Custom Property</th>
+        </tr>
+      </thead>
+      <tbody>
+        {
+          textLeadingEntries.map(([name]) => (
+            <tr>
+              <td>
+                <code>.leading-{name}</code>
+              </td>
+              <td>
+                <code>var(--leading-{name})</code>
+              </td>
+            </tr>
+          ))
+        }
+      </tbody>
+    </table>
+  </NaviOverflow>
+
+  <h2 id="weights">Weights</h2>
+
+  <NaviPreviewFrame src="/previews/text-weights?&showToolbar=false" />
+
+  <h2>Usage</h2>
+
+  <NaviOverflow>
+    <table>
+      <thead>
+        <tr>
+          <th>Utility Class</th>
+          <th>CSS Custom Property</th>
+        </tr>
+      </thead>
+      <tbody>
+        {
+          textWeightsEntries.map(([name]) => (
+            <tr>
+              <td>
+                <code>.font-weight-{name}</code>
+              </td>
+              <td>
+                <code>var(--font-weight-{name})</code>
+              </td>
+            </tr>
+          ))
+        }
+      </tbody>
+    </table>
+  </NaviOverflow>
+
+  <h2 id="fonts">Fonts</h2>
+
+  <NaviPreviewFrame src="/previews/fonts?&showToolbar=false" />
+
+  <h2>Usage</h2>
+
+  <NaviOverflow>
+    <table>
+      <thead>
+        <tr>
+          <th>Utility Class</th>
+          <th>CSS Custom Property</th>
+        </tr>
+      </thead>
+      <tbody>
+        {
+          fontsEntries.map(([name]) => (
+            <tr>
+              <td>
+                <code>.font-{name}</code>
+              </td>
+              <td>
+                <code>var(--font-{name})</code>
+              </td>
+            </tr>
+          ))
+        }
+      </tbody>
+    </table>
+  </NaviOverflow>
+</NaviPatternLibrary>

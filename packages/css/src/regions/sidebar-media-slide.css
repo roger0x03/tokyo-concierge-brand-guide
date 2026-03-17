@@ -1,0 +1,9 @@
+.sidebar-media-slide {
+  --sidebar-target-width: min(40rem, 35vi);
+  --sidebar-content-min-width: 50%;
+  --lede-measure: 50ch;
+}
+
+.sidebar-media-slide .sidebar {
+  --gutter: var(--space-m) var(--space-xl-2xl);
+}

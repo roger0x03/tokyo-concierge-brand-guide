@@ -1,0 +1,9 @@
+---
+import '@repo/css/blocks/browser-chrome';
+
+const { src, alt, variant } = Astro.props;
+---
+
+<div class="browser-chrome" data-browser-chrome-variant={variant}>
+  <img src={src} alt={alt} draggable="false" />
+</div>

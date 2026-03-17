@@ -1,0 +1,454 @@
+/*
+  Global styles
+
+  Low(ish)-specificity, global styles that apply to the whole
+  project: https://cube.fyi/css.html
+
+  Almost all custom properties used are defined in variables.css,
+  allowing us to customise globals with design tokens, rather than writing
+  the same styles for *every* project.
+*/
+
+/*
+  BASE TYPE
+*/
+
+body {
+  background: var(--color-global-bg);
+  color: var(--color-global-text);
+  font-size: var(--text-size-base);
+  font-family: var(--font-base);
+  letter-spacing: var(--kerning);
+  line-height: var(--leading);
+  font-size-adjust: from-font;
+  margin: 0;
+}
+
+:is(h1, h2, h3, h4, h5, h6) {
+  font-family: var(--heading-font-family);
+  font-weight: var(--heading-font-weight);
+  line-height: var(--heading-line-height, var(--leading-fine));
+  letter-spacing: var(--heading-kerning, var(--kerning));
+  text-wrap: balance;
+  overflow-wrap: anywhere;
+  font-feature-settings: 'cpsp' on;
+}
+
+h1 {
+  font-size: var(--text-size-heading-1);
+  max-width: var(--measure-heading-1);
+}
+
+h2 {
+  font-size: var(--text-size-heading-2);
+  max-width: var(--measure-heading-2);
+}
+
+h3 {
+  font-size: var(--text-size-heading-4);
+  max-width: var(--measure-heading-3);
+}
+
+h4 {
+  font-size: var(--text-size-heading-4);
+  max-width: var(--measure-heading-4);
+}
+
+h5 {
+  font-size: var(--text-size-heading-5);
+  max-width: var(--measure-heading-5);
+}
+
+h6 {
+  font-size: var(--text-size-heading-6);
+  max-width: var(--measure-heading-6);
+}
+
+small {
+  font-size: var(--text-size-small);
+}
+
+/*
+  PREFORMATTED
+*/
+
+:is(code, kbd, samp) {
+  font-family: var(--font-mono);
+  padding: var(--global-style-mono-element-padding);
+  hyphens: none;
+  tab-size: 2;
+  text-align: left;
+  word-spacing: normal;
+  word-break: normal;
+  word-wrap: normal;
+  box-decoration-break: clone;
+}
+
+/* This is quite a new property, so we want code styles to at least, not be huge or tiny */
+@supports not (font-size-adjust: from-font) {
+  :is(code, kbd, samp) {
+    font-size: var(--global-style-font-size-adjust-fallback);
+  }
+}
+
+pre:has(code) {
+  width: max-content;
+  max-width: 100%;
+  overflow-x: auto;
+}
+
+pre code {
+  border: none;
+  background: none;
+  padding: 0;
+}
+
+kbd {
+  border: var(--stroke);
+  text-box-trim: trim-start cap;
+}
+
+q {
+  font-style: var(--global-style-q-font-style);
+}
+
+/*
+  LISTS
+*/
+
+ul {
+  padding-inline-start: var(--global-style-ul-indent-space);
+  list-style-type: var(--global-style-ul-list-style);
+}
+
+ol {
+  padding-inline-start: var(--global-style-ol-indent-space);
+}
+
+ul:not([class]) > li {
+  padding-inline-start: var(--global-style-ul-list-item-extra-space);
+}
+
+ol:not([class]) > li {
+  padding-inline-start: var(--global-style-ol-list-item-extra-space);
+}
+
+ul ::marker {
+  font-size: var(--global-style-ul-marker-size);
+}
+
+ol ::marker {
+  font-size: var(--global-style-ol-marker-size);
+}
+
+li {
+  font-size: var(--global-style-li-font-size, var(--text-size-base));
+}
+
+:not([class]) > li + li,
+li:not([class]) > :is(ol, ul) {
+  margin-block-start: var(--global-style-list-vertical-space, var(--space-xs));
+}
+
+/* Lists with classes and roles will be out of standard flow, so remove the default spacing */
+[role='list']:where([class]:not(.reel)),
+[role='tablist'] {
+  margin-block: 0;
+  padding: 0;
+}
+
+dt {
+  font-weight: var(--global-style-dt-font-weight);
+}
+
+dt + dd {
+  margin-block-start: var(--global-style-dt-dd-relation-spacing);
+}
+
+dd + dt {
+  margin-block-start: var(--global-style-dd-dt-relation-spacing);
+}
+
+dd {
+  margin-inline-start: var(--global-style-dd-indent);
+}
+
+/*
+  QUOTES
+*/
+
+blockquote {
+  /* flex allows us to change the display order of blockquote children */
+  display: flex;
+  flex-direction: column;
+  gap: var(--global-style-blockquote-gap);
+  font-size: var(--global-style-blockquote-size);
+
+  /* Removes user agent style */
+  margin-inline: 0;
+}
+
+blockquote footer {
+  /* Related to the above flex rule. Set to -1 in your config to display the footer first, visually */
+  order: var(--global-style-blockquote-footer-order);
+  margin-block-start: var(--global-style-blockquote-foot-space);
+  color: var(--global-style-blockquote-footer-color);
+  font-size: var(--global-style-blockquote-footer-size);
+  font-family: var(--global-style-blockquote-footer-font-family, var(--font-base));
+  text-transform: var(--global-style-blockquote-footer-text-transform, uppercase);
+  letter-spacing: var(--global-style-blockquote-footer-kerning, var(--kerning-caps));
+}
+
+blockquote q,
+blockquote p {
+  font-family: var(--global-style-blockquote-quote-font-family, var(--font-base));
+  font-style: var(--global-style-blockquote-quote-style, italic);
+  max-width: var(--global-style-blockquote-quote-max-width, inherit);
+}
+
+/*
+  MEDIA
+*/
+
+:is(video, iframe[src*='youtube'], iframe[src*='vimeo']) {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 16/9;
+}
+
+:is(img, picture) {
+  height: auto;
+  max-width: 100%;
+  display: block;
+}
+
+picture img {
+  width: 100%;
+}
+
+figure {
+  margin-block-start: inherit;
+  margin-inline: var(--global-style-figure-margin-inline, revert);
+}
+
+figcaption {
+  padding-block-start: var(--global-style-figcaption-space);
+  font-size: var(--global-style-figcaption-size);
+  font-family: var(--global-style-figcaption-font);
+}
+
+svg:not([class]) {
+  width: auto;
+  height: var(--global-style-svg-height);
+}
+
+/* Prevents flex contexts squishing icons */
+svg {
+  flex-shrink: 0;
+}
+
+/* Tables */
+table {
+  border: var(--global-style-table-border, var(--stroke));
+  border-collapse: collapse;
+  width: 100%;
+}
+
+thead th {
+  padding: var(--global-style-table-th-padding, var(--space-s));
+  text-align: left;
+  font-family: var(--global-style-table-th-font-family, var(--font-base));
+  font-size: var(--global-style-table-th-font-size, var(--text-size-base));
+  font-weight: var(--global-style-table-th-font-weight, var(--font-bold));
+  line-height: var(--global-style-table-th-leading, var(--leading-fine));
+  letter-spacing: var(--global-style-table-th-kerning, var(--kerning));
+  background: var(--global-style-table-th-bg, rgb(0 0 0 / 2%));
+}
+
+td {
+  padding: var(--global-style-table-td-padding, var(--space-xs) var(--space-s));
+  font-size: var(--global-style-table-td-font-size, var(--text-size-base));
+}
+
+th:not(:only-of-type) {
+  border-block-end: var(--global-style-table-th-border-end, var(--stroke));
+}
+
+th:only-of-type {
+  border-inline-end: var(--global-style-table-cell-border-inline, var(--stroke));
+}
+
+:is(th, td) ~ :is(th, td) {
+  border-inline-start: var(--global-style-table-cell-border-inline, var(--stroke));
+}
+
+tr + tr :is(th, td) {
+  border-block-start: var(--global-style-table-cell-border-start, var(--stroke));
+}
+
+caption {
+  caption-side: bottom;
+  margin-block-start: var(--space-2xs, 0.5lh);
+}
+
+/*
+  INTERACTIVE ELEMENTS/STATES
+*/
+
+a:not([class]) {
+  color: var(--color-global-link-color);
+  text-decoration: var(--global-style-link-text-decoration, revert);
+}
+
+a:not([class]):hover {
+  text-underline-offset: var(--global-style-link-hover-underline-offset);
+  text-decoration: var(--global-style-link-hover-text-decoration, revert);
+}
+
+:is(h1, h2, h3, h4) a:not([class]) {
+  text-decoration-thickness: var(--global-style-heading-link-underline-thickness);
+  text-underline-offset: var(--global-style-heading-link-underline-offset);
+}
+
+:is(h1, h2, h3, h4) a:not([class]):hover {
+  text-underline-offset: var(--global-style-heading-link-hover-underline-offset);
+}
+
+:focus {
+  outline: none;
+}
+
+:focus-visible:not([tabindex='-1']) {
+  outline: 2px solid var(--focus-color);
+  outline-offset: var(--focus-ring-offset);
+}
+
+:target {
+  scroll-margin-block: var(--global-style-scroll-margin);
+  outline: 0;
+}
+
+::selection {
+  color: var(--color-selection-text);
+  background: var(--color-selection-bg);
+}
+
+/*
+  RULES/STROKES
+*/
+
+hr {
+  border: none;
+  border-block-start: var(--global-style-hr-stroke);
+  margin-block: var(--global-style-hr-space);
+}
+
+/* Allow the width and height attributes to take over if an SVG specifies them */
+svg[role='img'][width][height] {
+  width: revert;
+  height: revert;
+}
+
+/*
+  FORMS
+*/
+
+/* There's a .flow composition, but this prevents forms from having to have that applied where markup is harder to control in certain systems. It still uses the --flow-space variables though to make managing space easier */
+form > * + * {
+  margin-top: var(--flow-space);
+}
+
+:is(input, select, textarea) {
+  accent-color: var(--global-style-accent-color);
+}
+
+:is(input:not([type='checkbox'], [type='radio'], [type='color']), select, textarea) {
+  padding: var(--global-style-input-padding);
+  border-radius: var(--global-style-input-radius);
+  border: var(--global-style-input-stroke);
+  background: var(--global-style-input-bg);
+  color: var(--global-style-input-color);
+  width: 100%;
+
+  &::placeholder {
+    color: var(--global-style-input-placeholder-color);
+    opacity: 1;
+  }
+}
+
+label {
+  display: var(--global-style-label-display);
+  line-height: var(--global-style-label-leading);
+  font-weight: var(--global-style-label-font-weight);
+  font-family: var(--global-style-label-font-family);
+  font-size: var(--global-style-label-font-size);
+  letter-spacing: var(--global-style-label-kerning);
+  text-transform: var(--global-style-label-text-transform);
+}
+
+/* Creates a line break, but maintains its inline behaviour */
+label::after {
+  content: '\A';
+  white-space: pre;
+}
+
+/* Usually label wraps checkbox and radio buttons, so we give ourselves more layout and text-flow control with flex */
+label:has(input:is([type='radio'], [type='checkbox'])) {
+  display: flex;
+  align-items: baseline;
+  gap: var(--global-style-label-with-input-gap);
+}
+
+label:has(input) + label:has(input) {
+  --flow-space: var(--global-style-label-with-input-flow-space);
+}
+
+label + input,
+label + textarea,
+/* Probable edge case selectors; more specificity needed to stop the margin from being overridden in this instance */
+.flow label + input,
+.flow label + textarea {
+  margin-block-start: var(--space-2xs);
+}
+
+/* Slightly adjusts the vertical position of the check/radio */
+label:has(input) input {
+  transform: translateY(-0.1ex);
+}
+
+input:disabled {
+  background: var(--global-style-input-disabled-color);
+}
+
+input:disabled,
+label input:disabled + * {
+  cursor: not-allowed;
+}
+
+fieldset {
+  border: var(--global-style-fieldset-stroke);
+  padding: var(--global-style-fieldset-padding);
+}
+
+legend {
+  font-weight: var(--global-style-legend-font-weight);
+  padding-inline: var(--global-style-legend-padding);
+}
+
+/*
+  DETAILS AND SUMMARY
+*/
+summary {
+  font-weight: var(--global-style-summary-font-weight);
+  cursor: pointer;
+}
+
+summary::marker,
+summary::-webkit-details-marker {
+  display: none; /* Hide the default marker. */
+}
+
+details[open] summary {
+  margin-block-end: var(--global-style-details-open-space);
+}

@@ -1,0 +1,89 @@
+---
+import NaviMetaInfo from '@components/NaviMetaInfo.astro';
+import NaviToolbar from '@components/NaviToolbar.astro';
+import { navi } from '@data/naviConfig';
+
+// Get the project styles from the navi config.
+const styles = Array.isArray(navi?.config?.styles)
+  ? navi.config.styles
+  : [navi.config.styles || ''];
+const { title } = Astro.props;
+const canonicalURL = new URL(Astro.url.pathname, Astro.site);
+
+// Get the value from the navi config.
+const configShowToolbar = navi.config.showToolbar ?? true;
+
+// Get any value passed for the toolbar via the query param.
+const showToolbarParam = Astro.url.searchParams.get('showToolbar');
+
+// URL param takes priority over the config value.
+const showToolbar =
+  showToolbarParam === 'true' ? true : showToolbarParam === 'false' ? false : configShowToolbar;
+
+// Get the background color from the query param.
+const bgParam = Astro.url.searchParams.get('previewBG');
+
+// Ensure the sugarcube generated utilities are imported last!
+import '@repo/css/sugarcube/utilities/utilities.gen';
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <meta name="generator" content={Astro.generator} />
+    <NaviMetaInfo title={title} canonicalURL={canonicalURL} />
+    {styles.map((style: string) => <link rel="stylesheet" href={style} />)}
+    <link id="theme-link" rel="stylesheet" href="" />
+  </head>
+  <body>
+    <main tabindex="-1" id="main-content" style={bgParam && `background-color: ${bgParam};`}>
+      <div style="min-height: calc(100svh - var(--navi-toolbar-height, 0px));">
+        <slot />
+      </div>
+      {showToolbar && <NaviToolbar />}
+    </main>
+  </body>
+</html>
+
+<script is:inline>
+  // Get the initial state for the page theme css from localStorage.
+  const savedPageTheme = localStorage.getItem('navi-page-theme') || '';
+
+  // Update the stylesheet url based on the value in localStorage.
+  const pageThemeLink = document.getElementById('theme-link');
+  if (pageThemeLink) pageThemeLink.href = savedPageTheme;
+
+  // Set the radio button state from localStorage.
+  const initialRadio = document.querySelector(
+    `input[name="page-theme"][value="${savedPageTheme}"]`
+  );
+  if (initialRadio) initialRadio.checked = true;
+
+  // On load, request the current 'source of truth' from the parent page.
+  window.parent.postMessage({ type: 'SYNC' }, window.location.origin);
+
+  // Listener for state changes.
+  window.addEventListener('message', (event) => {
+    // Only allow messages from our own domain.
+    if (event.origin !== window.location.origin) return;
+
+    // Set the page theme css.
+    if (event.data.type === 'SET_PAGE_THEME') {
+      // Update the stylesheet url based on the value passed from the event.
+      const pageThemeLink = document.getElementById('theme-link');
+      if (pageThemeLink) pageThemeLink.href = event.data.url;
+
+      // Sync any radio buttons, if they are set to be displayed on the the NaviPreviewFrame's.
+      const radio = document.querySelector(`input[value="${event.data.url}"]`);
+      if (radio) radio.checked = true;
+    }
+
+    // Apply light or dark mode.
+    if (event.data.type === 'SET_THEME_TOGGLE') {
+      // Add the attribute.
+      document.documentElement.setAttribute('data-user-theme', event.data.mode);
+    }
+  });
+</script>

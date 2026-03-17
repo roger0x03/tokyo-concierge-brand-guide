@@ -1,0 +1,26 @@
+---
+const { heading } = Astro.props;
+---
+
+<details class="navi-disclosure">
+  <summary>
+    {heading}
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      width="16"
+      height="16"
+      aria-hidden="true"
+      focusable="false"
+      viewBox="0 0 16 16"
+      fill="none"
+      class="navi-disclosure__icon"
+    >
+      <path
+        d="M0 4.88667L1.886 3L8.00267 9.226L14.114 3L16 4.88667L8.00267 13L0 4.88667Z"
+        fill="currentColor"></path>
+    </svg>
+  </summary>
+  <div class="navi-disclosure__body">
+    <slot />
+  </div>
+</details>

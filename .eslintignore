@@ -1,0 +1,6 @@
+# Ignore TypeScript declaration files
+**/*.d.ts
+
+# Ignore build folders
+node_modules/
+dist/

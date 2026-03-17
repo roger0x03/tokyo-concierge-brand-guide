@@ -1,0 +1,70 @@
+---
+import BaseLayout from '@layouts/BaseLayout.astro';
+import CoverSlide from '@repo/ui/CoverSlide';
+import BrandSlide from '@repo/ui/BrandSlide';
+import BrowserClipsSlide from '@repo/ui/BrowserClipsSlide';
+import SidebarMediaSlide from '@repo/ui/SidebarMediaSlide';
+import CostingSlide from '@repo/ui/CostingSlide';
+import HeadlineSlide from '@repo/ui/HeadlineSlide';
+import NavSlide from '@repo/ui/NavSlide';
+import MediaSlide from '@repo/ui/MediaSlide';
+import QuoteSlide from '@repo/ui/QuoteSlide';
+import ProseSlide from '@repo/ui/ProseSlide';
+import SwatchesSlide from '@repo/ui/SwatchesSlide';
+import MediaAssetsSlide from '@repo/ui/MediaAssetsSlide';
+
+import { site } from '@repo/data/siteData';
+import { getCollection } from 'astro:content';
+
+export async function getStaticPaths() {
+  const slides = await getCollection('slides');
+
+  return slides.map((entry) => ({
+    params: { slide: entry.slug },
+    props: { slide: entry },
+  }));
+}
+
+const { slide } = Astro.props;
+const slides = await getCollection('slides');
+const nextSlide = slides.find((x) => x.slug === (parseInt(slide.slug) + 1).toString());
+const next = nextSlide ? `/slides/${nextSlide.slug}/` : '/';
+const prev = parseInt(slide.slug) !== 1 ? `/slides/${parseInt(slide.slug) - 1}/` : '/';
+const title = `Slide #${slide.slug} of ${slides.length} - ${site.title} `;
+
+const templateProps = {
+  footerHeading: site.footerHeading,
+  footerByline: site.footerByline,
+  next,
+  prev,
+  pageNumber: slide.slug,
+  slides: [...slides].sort((a, b) => parseInt(a.slug) - parseInt(b.slug)),
+};
+---
+
+<BaseLayout title={title} allowRobots={false}>
+  {slide.data.template === 'CoverSlide' && <CoverSlide {...templateProps} {...slide.data} />}
+  {slide.data.template === 'BrandSlide' && <BrandSlide {...templateProps} {...slide.data} />}
+  {
+    slide.data.template === 'BrowserClipsSlide' && (
+      <BrowserClipsSlide {...templateProps} {...slide.data} />
+    )
+  }
+  {
+    slide.data.template === 'SidebarMediaSlide' && (
+      <SidebarMediaSlide {...templateProps} {...slide.data} />
+    )
+  }
+  {slide.data.template === 'CostingSlide' && <CostingSlide {...templateProps} {...slide.data} />}
+  {slide.data.template === 'HeadlineSlide' && <HeadlineSlide {...templateProps} {...slide.data} />}
+  {slide.data.template === 'NavSlide' && <NavSlide {...templateProps} {...slide.data} />}
+  {slide.data.template === 'MediaSlide' && <MediaSlide {...templateProps} {...slide.data} />}
+  {slide.data.template === 'QuoteSlide' && <QuoteSlide {...templateProps} {...slide.data} />}
+  {slide.data.template === 'ProseSlide' && <ProseSlide {...templateProps} {...slide.data} />}
+  {slide.data.template === 'SwatchesSlide' && <SwatchesSlide {...templateProps} {...slide.data} />}
+  {
+    slide.data.template === 'MediaAssetsSlide' && (
+      <MediaAssetsSlide {...templateProps} {...slide.data} />
+    )
+  }
+</BaseLayout>

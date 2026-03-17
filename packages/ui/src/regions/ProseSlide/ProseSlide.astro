@@ -1,0 +1,49 @@
+---
+import '@repo/css/regions/prose-slide';
+
+import Slide from '@repo/ui/Slide';
+import Lede from '@repo/ui/Lede';
+import MarkdownText from '@repo/ui/MarkdownText';
+import Prose from '@repo/ui/Prose';
+
+// ProseSlide.astro
+const { heading, summary, media, prose, ...rest } = Astro.props;
+---
+
+<Slide {...rest}>
+  <div class="prose-slide">
+    <header class="prose-slide__header flow">
+      <h1>{heading}</h1>
+    </header>
+    <hr />
+    {
+      media && (
+        <div class="switcher" data-direction="rtl">
+          <div>
+            {summary && (
+              <Lede>
+                <MarkdownText content={summary} />
+              </Lede>
+            )}
+            <Prose content={prose} />
+          </div>
+          <div>
+            <img src={media.src} alt={media.alt} />
+          </div>
+        </div>
+      )
+    }
+    {
+      !media && (
+        <>
+          {summary && (
+            <Lede>
+              <MarkdownText content={summary} />
+            </Lede>
+          )}
+          <Prose content={prose} />
+        </>
+      )
+    }
+  </div>
+</Slide>

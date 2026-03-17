@@ -1,0 +1,18 @@
+---
+const { toc } = Astro.props;
+---
+
+{
+  Array.isArray(toc) && toc.length > 0 && (
+    <nav aria-label="Table of contents" class="navi-table-of-contents">
+      <p class="navi-table-of-contents__label">Skip to section:</p>
+      <ul role="list" tabindex="0" aria-label="Sections" class="navi-table-of-contents__list">
+        {toc.map(({ slug, text }) => (
+          <li>
+            <a href={`#${slug}`}>{text}</a>
+          </li>
+        ))}
+      </ul>
+    </nav>
+  )
+}

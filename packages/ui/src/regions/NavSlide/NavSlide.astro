@@ -1,0 +1,42 @@
+---
+import '@repo/css/regions/nav-slide';
+
+import Slide from '@repo/ui/Slide';
+import Lede from '@repo/ui/Lede';
+import Heading from '@repo/ui/Heading';
+import MarkdownText from '@repo/ui/MarkdownText';
+
+const { slides, heading, summary, ...rest } = Astro.props;
+const navSlides = slides.filter((x) => x.data.navItem);
+---
+
+<div class="nav-slide">
+  <Slide {...rest}>
+    <div>
+      <Heading variant="minor">{heading}</Heading>
+      <hr />
+      {
+        (summary || navSlides.length) && (
+          <div class="nav-slide__content flow">
+            {summary && (
+              <Lede>
+                <MarkdownText class="flow" content={summary} />
+              </Lede>
+            )}
+            {navSlides.length && (
+              <nav aria-label="contents">
+                <ol>
+                  {navSlides.map((slide) => (
+                    <li>
+                      <a href={`/slides/${slide.slug}/`}>{slide.data.heading}</a>
+                    </li>
+                  ))}
+                </ol>
+              </nav>
+            )}
+          </div>
+        )
+      }
+    </div>
+  </Slide>
+</div>

@@ -1,0 +1,33 @@
+---
+import MetaInfo from '@components/core/MetaInfo.astro';
+
+import '@repo/css/global';
+
+const { title, summary, socialImage, allowRobots } = Astro.props;
+const canonicalURL = new URL(Astro.url.pathname, Astro.site);
+---
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <meta name="generator" content={Astro.generator} />
+    <MetaInfo
+      title={title}
+      summary={summary}
+      canonicalURL={canonicalURL}
+      socialImage={socialImage}
+    />
+    {allowRobots === false && <meta name="robots" content="noindex, nofollow" />}
+  </head>
+  <body>
+    <slot />
+    <script>
+      if ('serviceWorker' in navigator) {
+        window.addEventListener('load', () => {
+          navigator.serviceWorker.register('/service-worker.js');
+        });
+      }
+    </script>
+  </body>
+</html>

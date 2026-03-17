@@ -1,0 +1,26 @@
+---
+import '@repo/css/regions/media-slide';
+
+import Slide from '@repo/ui/Slide';
+
+const { src, alt, caption, mediaType = 'image', fill, ...rest } = Astro.props;
+---
+
+<div class="media-slide" data-media-slide-fill={fill}>
+  <Slide {...rest} concealedFooter={fill === 'bleed'}>
+    <figure>
+      {mediaType === 'image' && <img src={src} alt={alt} />}
+      {
+        mediaType === 'video' && (
+          <video
+            src={src}
+            controls={fill === 'bleed' ? undefined : true}
+            autoplay={fill === 'bleed' ? true : undefined}
+            muted={fill === 'bleed' ? true : undefined}
+          />
+        )
+      }
+      {caption && <figcaption>{caption}</figcaption>}
+    </figure>
+  </Slide>
+</div>

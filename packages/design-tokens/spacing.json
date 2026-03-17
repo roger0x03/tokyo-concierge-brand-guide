@@ -1,0 +1,141 @@
+{
+  "space": {
+    "$type": "fluidDimension",
+    "$description": "Consistent spacing sizes, based on a ratio, with min and max sizes. This allows you to set spacing based on the context size. For example, min for mobile and max for desktop browsers.",
+    "$extensions": {
+      "scaleGenerator": "https://utopia.fyi/space/calculator?c=360,18,1.2,1240,20,1.25,5,2,&s=0.75|0.5|0.25,1.5|2|3|4|6|6,s-l|s-xl&g=s,l,xl,12"
+    },
+    "3xs": {
+      "$value": {
+        "min": { "value": 5, "unit": "px" },
+        "max": { "value": 5, "unit": "px" }
+      }
+    },
+    "2xs": {
+      "$value": {
+        "min": { "value": 9, "unit": "px" },
+        "max": { "value": 10, "unit": "px" }
+      }
+    },
+    "xs": {
+      "$value": {
+        "min": { "value": 14, "unit": "px" },
+        "max": { "value": 15, "unit": "px" }
+      }
+    },
+    "s": {
+      "$value": {
+        "min": { "value": 18, "unit": "px" },
+        "max": { "value": 20, "unit": "px" }
+      }
+    },
+    "m": {
+      "$value": {
+        "min": { "value": 27, "unit": "px" },
+        "max": { "value": 30, "unit": "px" }
+      }
+    },
+    "l": {
+      "$value": {
+        "min": { "value": 36, "unit": "px" },
+        "max": { "value": 40, "unit": "px" }
+      }
+    },
+    "xl": {
+      "$value": {
+        "min": { "value": 54, "unit": "px" },
+        "max": { "value": 60, "unit": "px" }
+      }
+    },
+    "2xl": {
+      "$value": {
+        "min": { "value": 72, "unit": "px" },
+        "max": { "value": 80, "unit": "px" }
+      }
+    },
+    "3xl": {
+      "$value": {
+        "min": { "value": 108, "unit": "px" },
+        "max": { "value": 120, "unit": "px" }
+      }
+    },
+    "4xl": {
+      "$value": {
+        "min": { "value": 108, "unit": "px" },
+        "max": { "value": 120, "unit": "px" }
+      }
+    },
+    "3xs-2xs": {
+      "$value": {
+        "min": { "value": 5, "unit": "px" },
+        "max": { "value": 10, "unit": "px" }
+      }
+    },
+    "2xs-xs": {
+      "$value": {
+        "min": { "value": 9, "unit": "px" },
+        "max": { "value": 15, "unit": "px" }
+      }
+    },
+    "xs-s": {
+      "$value": {
+        "min": { "value": 14, "unit": "px" },
+        "max": { "value": 20, "unit": "px" }
+      }
+    },
+    "s-m": {
+      "$value": {
+        "min": { "value": 18, "unit": "px" },
+        "max": { "value": 30, "unit": "px" }
+      }
+    },
+    "m-l": {
+      "$value": {
+        "min": { "value": 27, "unit": "px" },
+        "max": { "value": 40, "unit": "px" }
+      }
+    },
+    "l-xl": {
+      "$value": {
+        "min": { "value": 36, "unit": "px" },
+        "max": { "value": 60, "unit": "px" }
+      }
+    },
+    "lg-2xl": {
+      "$value": {
+        "min": { "value": 36, "unit": "px" },
+        "max": { "value": 80, "unit": "px" }
+      }
+    },
+    "xl-2xl": {
+      "$value": {
+        "min": { "value": 54, "unit": "px" },
+        "max": { "value": 80, "unit": "px" }
+      }
+    },
+    "2xl-3xl": {
+      "$value": {
+        "min": { "value": 72, "unit": "px" },
+        "max": { "value": 120, "unit": "px" }
+      }
+    },
+    "3xl-4xl": {
+      "$value": {
+        "min": { "value": 108, "unit": "px" },
+        "max": { "value": 120, "unit": "px" }
+      }
+    },
+    "s-l": {
+      "$value": {
+        "min": { "value": 18, "unit": "px" },
+        "max": { "value": 40, "unit": "px" }
+      }
+    },
+    "s-xl": {
+      "$value": {
+        "min": { "value": 18, "unit": "px" },
+        "max": { "value": 60, "unit": "px" }
+      }
+    }
+  }
+}

@@ -1,0 +1,46 @@
+---
+layout: '@layouts/NaviMarkdownPageLayout.astro'
+title: 'CSS Utilities'
+toc:
+  - text: Region
+    slug: region
+  - text: Visually Hidden
+    slug: visually-hidden
+---
+
+import NaviCodeBlock from '@components/NaviCodeBlock.astro';
+
+## Region
+
+A container that provides consistent vertical spacing for
+chunks/sections/regions of content.
+
+<NaviCodeBlock
+  lang="html"
+  code={`<div class="region">I have consistent space now.</div>`}
+/>
+
+To disable the top spacing on the `region` use the following data attribute:
+
+<NaviCodeBlock
+  lang="html"
+  code={`<div class="region" data-flush="top">Top spacing is disabled.</div>`}
+/>
+
+To disable the bottom spacing on the `region` use the following data attribute:
+
+<NaviCodeBlock
+  lang="html"
+  code={`<div class="region" data-flush="bottom">Bottom spacing is disabled.</div>`}
+/>
+
+## Visually hidden
+
+If you hide an element with `display: none`, it can also hide it from assistive
+technology, such as screen readers. This utility allows you to get the effect
+of `display: none`, without the a11y issues.
+
+<NaviCodeBlock
+  lang="html"
+  code={`<p class="visually-hidden">You can’t see me, but a screen reader can still access me</p>`}
+/>

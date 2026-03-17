@@ -1,0 +1,72 @@
+---
+import NaviPatternLibrary from '@layouts/NaviPatternLibrary.astro';
+import NaviOverflow from '@components/NaviOverflow.astro';
+import colors from '@repo/design-tokens/colors.json';
+import { slugify } from '@utils/slugify';
+import { getValidEntries } from '@utils/validEntries';
+
+// Access the nested color object.
+const colorData = colors.color || {};
+
+// Grab the description.
+const description = colorData['$description'];
+
+// Filter out keys likes $type or $description.
+const colorEntries = getValidEntries(colorData);
+---
+
+<NaviPatternLibrary title="Colors">
+  {description && <p>{description}</p>}
+  {
+    colorEntries.length > 0 ? (
+      <NaviOverflow>
+        <table>
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>Hex Code</th>
+              <th>Custom Property</th>
+              <th>Color Utility Class</th>
+              <th>BG Utility Class</th>
+            </tr>
+          </thead>
+          <tbody>
+            {colorEntries.map(([name, data]: [string, any]) => {
+              const formattedName = name.charAt(0).toUpperCase() + name.slice(1).replace('-', ' ');
+              const tokenName = name ? slugify(name) : 'unnamed-color';
+              const cssVar = `var(--color-${tokenName})`;
+              const textClass = `.text-${tokenName}`;
+              const bgClass = `.bg-${tokenName}`;
+              const hex = data.$value || 'transparent'; // Fallback if value is missing
+
+              return (
+                <tr>
+                  <td>
+                    <div class="navi-swatch">
+                      <span style={`background-color: ${hex};`} class="navi-swatch__sample" />
+                      <span class="navi-swatch__label">{formattedName || 'Unnamed color'}</span>
+                    </div>
+                  </td>
+                  <td>
+                    <code>{hex}</code>
+                  </td>
+                  <td>
+                    <code>{cssVar}</code>
+                  </td>
+                  <td>
+                    <code>{textClass}</code>
+                  </td>
+                  <td>
+                    <code>{bgClass}</code>
+                  </td>
+                </tr>
+              );
+            })}
+          </tbody>
+        </table>
+      </NaviOverflow>
+    ) : (
+      <p>No colors available.</p>
+    )
+  }
+</NaviPatternLibrary>

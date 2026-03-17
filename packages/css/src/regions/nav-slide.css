@@ -1,0 +1,16 @@
+.nav-slide {
+  --lede-size: var(--size-step-2);
+  --global-style-li-font-size: var(--lede-size);
+  --global-style-ol-indent-space: 4ch;
+  --global-style-hr-space: var(--space-l);
+  --lede-measure: 50ch;
+  --flow-space: var(--space-l);
+}
+
+.nav-slide__content {
+  max-width: 80rem;
+}
+
+.nav-slide .heading {
+  --heading-font-size: var(--size-step-5);
+}

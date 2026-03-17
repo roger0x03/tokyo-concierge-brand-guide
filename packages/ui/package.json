@@ -1,0 +1,51 @@
+{
+  "name": "@repo/ui",
+  "version": "0.0.1",
+  "private": true,
+  "type": "module",
+  "license": "MIT",
+  "exports": {
+    "./MarkdownText": "./src/components/MarkdownText/MarkdownText.astro",
+    "./Lede": "./src/components/Lede/Lede.astro",
+    "./Heading": "./src/components/Heading/Heading.astro",
+    "./BrowserChrome": "./src/components/BrowserChrome/BrowserChrome.astro",
+    "./Footer": "./src/components/Footer/Footer.astro",
+    "./Prose": "./src/components/Prose/Prose.astro",
+    "./Button": "./src/components/Button/Button.astro",
+    "./Slide": "./src/components/Slide/Slide.astro",
+    "./BrandSlide": "./src/regions/BrandSlide/BrandSlide.astro",
+    "./MediaSlide": "./src/regions/MediaSlide/MediaSlide.astro",
+    "./CoverSlide": "./src/regions/CoverSlide/CoverSlide.astro",
+    "./HeadlineSlide": "./src/regions/HeadlineSlide/HeadlineSlide.astro",
+    "./NavSlide": "./src/regions/NavSlide/NavSlide.astro",
+    "./QuoteSlide": "./src/regions/QuoteSlide/QuoteSlide.astro",
+    "./SidebarMediaSlide": "./src/regions/SidebarMediaSlide/SidebarMediaSlide.astro",
+    "./CostingSlide": "./src/regions/CostingSlide/CostingSlide.astro",
+    "./ProseSlide": "./src/regions/ProseSlide/ProseSlide.astro",
+    "./SwatchesSlide": "./src/regions/SwatchesSlide/SwatchesSlide.astro",
+    "./MediaAssetsSlide": "./src/regions/MediaAssetsSlide/MediaAssetsSlide.astro",
+    "./BrowserClipsSlide": "./src/regions/BrowserClipsSlide/BrowserClipsSlide.astro"
+  },
+  "scripts": {
+    "lint": "eslint src --ext .js,.jsx,.ts,.tsx,.astro --max-warnings 0"
+  },
+  "devDependencies": {
+    "@repo/data": "*",
+    "@repo/design-tokens": "*",
+    "@repo/eslint-config": "*",
+    "eslint": "^8.57.0",
+    "prettier": "^3.5.3",
+    "prettier-plugin-astro": "^0.14.1",
+    "react-markdown": "^9.0.1",
+    "rehype-raw": "^7.0.0",
+    "rehype-sanitize": "^6.0.0",
+    "remark-deflist": "^1.0.0",
+    "remark-gfm": "^4.0.0",
+    "typescript": "^5.9.3"
+  },
+  "dependencies": {
+    "marked": "^15.0.7",
+    "react": "^19.0.0",
+    "rehype-external-links": "^3.0.0"
+  }
+}

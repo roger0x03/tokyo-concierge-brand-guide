@@ -1,0 +1,23 @@
+---
+import '@repo/css/regions/costing-slide';
+
+import Slide from '@repo/ui/Slide';
+import Lede from '@repo/ui/Lede';
+import MarkdownText from '@repo/ui/MarkdownText';
+
+const { summary, price, smallPrint, cite, ...rest } = Astro.props;
+---
+
+<div class="costing-slide">
+  <Slide {...rest}>
+    <div class="flow">
+      <Lede>
+        <MarkdownText class="flow" content={summary} />
+      </Lede>
+      <figure>
+        <p class="costing-slide__price">{price}</p>
+        <figcaption>{smallPrint}</figcaption>
+      </figure>
+    </div>
+  </Slide>
+</div>

@@ -1,0 +1,31 @@
+{
+  "name": "navi",
+  "type": "module",
+  "version": "0.0.1",
+  "license": "MIT",
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "astro": "astro",
+    "format": "prettier --write '**/*.{js,jsx,ts,tsx,astro,md,json,css}'"
+  },
+  "dependencies": {
+    "@astrojs/mdx": "4.3.13",
+    "@astrojs/netlify": "6.6.4",
+    "@astrojs/react": "4.4.2",
+    "@repo/data": "*",
+    "@repo/design-tokens": "*",
+    "@repo/ui": "*",
+    "@types/react": "^19.0.10",
+    "@types/react-dom": "^19.0.4",
+    "astro": "5.17.1",
+    "marked": "^15.0.6",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0"
+  },
+  "devDependencies": {
+    "cssnano": "^7.0.6",
+    "postcss-import": "^16.1.1"
+  }
+}

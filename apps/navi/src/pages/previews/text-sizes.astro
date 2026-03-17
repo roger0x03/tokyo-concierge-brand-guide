@@ -1,0 +1,42 @@
+---
+import NaviFullscreenLayout from '@layouts/NaviFullscreenLayout.astro';
+import textSizes from '@repo/design-tokens/text-sizes.json';
+import { getValidEntries } from '@utils/validEntries';
+
+// Text sizes
+const textSizesData = textSizes.size || {};
+// console.log(textSizesData);
+
+// Filter out keys likes $type or $description
+const textSizesEntries = getValidEntries(textSizesData);
+
+// Set the page title.
+const title = `Text sizes`;
+---
+
+<NaviFullscreenLayout title={title} hideHeader={true} hideFooter={true}>
+  <div style="padding: 1.5rem;">
+    {
+      textSizesEntries.length > 0 ? (
+        textSizesEntries.map(([name, data]: [string, any]) => {
+          const formattedName = name.charAt(0).toUpperCase() + name.slice(1).replace('-', ' ');
+          const varName = `var(--size-${name})`;
+          const value = data.$value;
+          const min = `${value.min.value}${value.min.unit}`;
+          const max = `${value.max.value}${value.max.unit}`;
+
+          return (
+            <div class="flow" style="margin-block-end: 2rem;">
+              <p style={`font-size: ${varName}; line-height: 1;`}>{formattedName}</p>
+              <p>
+                (min: {min} / max: {max})
+              </p>
+            </div>
+          );
+        })
+      ) : (
+        <p>No size entries available.</p>
+      )
+    }
+  </div>
+</NaviFullscreenLayout>

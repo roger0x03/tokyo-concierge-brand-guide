@@ -1,0 +1,9 @@
+---
+import '@repo/css/blocks/heading';
+
+// Heading.astro
+const { level = 'h1', variant } = Astro.props;
+const HeadingElement = `${level}`;
+---
+
+<HeadingElement class="heading" data-heading-variant={variant}><slot /></HeadingElement>

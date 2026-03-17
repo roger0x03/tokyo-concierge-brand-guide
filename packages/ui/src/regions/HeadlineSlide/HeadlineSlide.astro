@@ -1,0 +1,27 @@
+---
+import '@repo/css/regions/headline-slide';
+
+import Slide from '@repo/ui/Slide';
+import Lede from '@repo/ui/Lede';
+import Heading from '@repo/ui/Heading';
+import MarkdownText from '@repo/ui/MarkdownText';
+
+const { heading, summary, ...rest } = Astro.props;
+---
+
+<div class="headline-slide">
+  <Slide {...rest}>
+    <div class="flow">
+      <Heading>{heading}</Heading>
+      {
+        summary && (
+          <div class="headline-slide__content">
+            <Lede>
+              <MarkdownText class="flow" content={summary} />
+            </Lede>
+          </div>
+        )
+      }
+    </div>
+  </Slide>
+</div>

@@ -1,0 +1,17 @@
+.navi-badge {
+  --navi-badge-bg: var(--color-status-success);
+
+  display: inline-block;
+  padding: calc(var(--space-3xs) / 2) var(--space-2xs);
+  background-color: var(--navi-badge-bg);
+  border-radius: var(--radius-l);
+  color: var(--color-dark);
+  font-family: var(--font-mono);
+  font-size: var(--size-step--2);
+  text-transform: uppercase;
+}
+
+/* Variants */
+.navi-badge[data-navi-badge-variant='warn'] {
+  --navi-badge-bg: var(--color-status-warning);
+}

@@ -1,0 +1,29 @@
+---
+const { categories, componentsByCategory } = Astro.props;
+const currentPath = Astro.url.pathname;
+---
+
+{
+  categories.map((category) => (
+    <div class="navi-category-quick-links">
+      <h3 class="navi-category-quick-links__heading">{category}</h3>
+      <ul class="navi-category-quick-links__list" role="list">
+        {componentsByCategory[category].map(({ label, href }) => {
+          const isActive = currentPath === href;
+          return (
+            <li>
+              <a
+                href={href}
+                aria-current={isActive ? 'page' : undefined}
+                class="navi-category-quick-links__item"
+              >
+                {isActive && <span aria-hidden="true">→</span>}
+                <span class="navi-category-quick-links__label">{label}</span>
+              </a>
+            </li>
+          );
+        })}
+      </ul>
+    </div>
+  ))
+}

@@ -1,0 +1,35 @@
+---
+layout: '@layouts/NaviMarkdownPageLayout.astro'
+title: 'Pattern Library'
+description: 'Explore the available UI components and their variants.'
+---
+
+import NaviCodeBlock from '@components/NaviCodeBlock.astro';
+
+This is the central hub for all UI components. Use the sidebar to browse components.
+
+## CSS
+
+The CSS is processed with [PostCSS](https://postcss.org/) and uses [CUBE CSS](https://cube.fyi/) as the methodology. All partials are bundled into one single output CSS file: `global.css`.
+
+## CSS Folder Structure
+
+<NaviCodeBlock
+  lang="text"
+  code={`src
+└── css
+    ├── blocks
+    ├── compositions
+    ├── global
+    ├── utilities
+    └── global.css
+`}
+/>
+
+The CSS folder mostly resembles the CUBE CSS structure and is as follows:
+
+1. `blocks`: contained components
+2. `compositions`: [layout compositions](/css-compositions/)
+3. `global`: global styles, broken up into handy partials
+4. `utilities`: [core utilities](/css-utilities/)
+5. `global.css`: the main CSS file that pulls everything together

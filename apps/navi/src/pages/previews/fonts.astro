@@ -1,0 +1,36 @@
+---
+import NaviFullscreenLayout from '@layouts/NaviFullscreenLayout.astro';
+import fonts from '@repo/design-tokens/fonts.json';
+import { getValidEntries } from '@utils/validEntries';
+
+// Fonts data.
+const fontsData = fonts.font || {};
+
+// Filter out keys likes $type or $description.
+const fontsEntries = getValidEntries(fontsData);
+
+// Set the page title.
+const title = `Fonts`;
+---
+
+<NaviFullscreenLayout title={title} hideHeader={true} hideFooter={true}>
+  <div class="flow" style="padding: 1.5rem;">
+    {
+      fontsEntries.length > 0 ? (
+        fontsEntries.map(([name, data]: [string, any]) => {
+          const formattedName = name.charAt(0).toUpperCase() + name.slice(1);
+          const description = data.$description;
+
+          return (
+            <div style={`font-family: var(--font-${name}); margin-block-end: 2rem;`}>
+              <strong>{formattedName}</strong>
+              <p>{description}</p>
+            </div>
+          );
+        })
+      ) : (
+        <p>No font entries available.</p>
+      )
+    }
+  </div>
+</NaviFullscreenLayout>

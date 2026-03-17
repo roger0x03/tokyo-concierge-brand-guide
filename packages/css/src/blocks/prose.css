@@ -1,0 +1,66 @@
+.prose {
+  --flow-space: var(--space-l);
+  --global-style-li-font-size: var(--size-step-1);
+  font-size: var(--size-step-1);
+}
+
+.prose :is(p, li, dl, figcaption) {
+  max-width: 55ch;
+  text-wrap: pretty;
+}
+
+/* Specific rule for Tokyo */
+.switcher .prose :is(p, li, dl, figcaption) {
+  max-width: 45ch;
+  text-wrap: pretty;
+}
+
+/* Specific rule for Tokyo */
+.prose > div:has(img) {
+  --flow-space: var(--space-lg-2xl);
+}
+
+.prose blockquote {
+  max-width: 45ch;
+  text-wrap: pretty;
+}
+
+.prose :is(h1, h2, h3, h4) + *:not([class]) {
+  --flow-space: var(--space-m);
+}
+
+/* Add more space on and around figures and tables */
+.prose :is(figure, table),
+.prose :is(figure, table) + * {
+  --flow-space: var(--space-2xl);
+}
+
+/* Add more space to headings on block start */
+.prose * + :is(h1, h2, h3, h4):not([class]) {
+  --flow-space: var(--space-xl);
+}
+
+.prose :is(ul, ol):not([class]) li + li,
+.prose :is(ul, ol):not([class]) li > :is(ol, ul) {
+  --flow-space: var(--space-xs);
+}
+
+.prose hr {
+  --flow-space: var(--space-2xl);
+}
+
+.prose :is(img, picture, video) {
+  border: var(--stroke-solid);
+}
+
+/* If a blockquote has multiple paragraphs, we'll treat the last one as a cite/footer */
+blockquote p:not(:only-child):last-child {
+  font-size: var(--global-style-blockquote-footer-size);
+}
+
+@media (--md) {
+  .prose :is(h1, h2, h3) {
+    overflow-wrap: unset;
+    hyphens: unset;
+  }
+}

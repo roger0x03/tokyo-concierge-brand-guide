@@ -1,0 +1,36 @@
+---
+import NaviFullscreenLayout from '@layouts/NaviFullscreenLayout.astro';
+import textWeights from '@repo/design-tokens/text-weights.json';
+import { getValidEntries } from '@utils/validEntries';
+
+// Weights
+const textWeightsData = textWeights.font.weight || {};
+
+// Filter out keys likes $type or $description
+const textWeightsEntries = getValidEntries(textWeightsData);
+
+// Set the page title.
+const title = `Text weights`;
+---
+
+<NaviFullscreenLayout title={title} hideHeader={true} hideFooter={true}>
+  <div class="flow" style="padding: 1.5rem;">
+    {
+      textWeightsEntries.length > 0 ? (
+        textWeightsEntries.map(([name, data]: [string, any]) => {
+          const formattedName = name.charAt(0).toUpperCase() + name.slice(1);
+          const varName = `var(--font-weight-${name})`;
+          const value = data.$value;
+
+          return (
+            <p style={`font-weight: ${varName}; margin-block-end: 2rem;`}>
+              {formattedName} ({value})
+            </p>
+          );
+        })
+      ) : (
+        <p>No weight entries available.</p>
+      )
+    }
+  </div>
+</NaviFullscreenLayout>

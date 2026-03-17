@@ -1,0 +1,102 @@
+---
+import { navi } from '@data/naviConfig';
+const { websiteThemes = [] } = navi.config;
+---
+
+{
+  websiteThemes?.length > 0 && (
+    <div class="navi-page-theme-switcher" role="radiogroup" aria-labelledby="group-label">
+      <span class="navi-page-theme-switcher__label" id="group-label">
+        Select a page theme:
+      </span>
+      <div class="navi-page-theme-switcher__radio-group">
+        <label>
+          <input type="radio" name="page-theme" id="page-theme-default" value="" checked />
+          <span>Default</span>
+        </label>
+        {websiteThemes.map((theme) => (
+          <label>
+            <input type="radio" name="page-theme" id={`page-theme-${theme.id}`} value={theme.css} />
+            <span>{theme.label}</span>
+          </label>
+        ))}
+      </div>
+    </div>
+  )
+}
+
+<script is:inline>
+  // Grab all the radio buttons.
+  const radios = document.querySelectorAll('input[name="page-theme"]');
+
+  // Add event listener for each of the radio buttons.
+  radios.forEach((radio) => {
+    radio.addEventListener('change', (event) => {
+      // Get the path to the CSS file associated with the selected radio button.
+      const pageThemeCssPath = event.target.value;
+
+      // Persist the selection to localStorage.
+      localStorage.setItem('navi-page-theme', pageThemeCssPath);
+
+      // Update the stylesheet url for the current window.
+      const pageThemeLink = document.getElementById('theme-link');
+      if (pageThemeLink) pageThemeLink.href = pageThemeCssPath;
+
+      // Determine if we need to talk 'up' to a parent or 'down' to children.
+      const isInsideIframe = window.self !== window.top;
+
+      if (isInsideIframe) {
+        // We are in a preview frame... notify the parent to sync all other NaviPreviewFrame's.
+        window.parent.postMessage(
+          { type: 'SET_PAGE_THEME', url: pageThemeCssPath },
+          window.location.origin
+        );
+      } else {
+        // We are in the parent... broadcast the change to every NaviPreviewFrame embedded iframe.
+        const previewFrames = Array.from(document.querySelectorAll('.navi-preview-frame iframe'));
+
+        // Loop through all the preview frames and tell them to update page theme.
+        previewFrames.forEach((frame) => {
+          frame.contentWindow?.postMessage(
+            { type: 'SET_PAGE_THEME', url: pageThemeCssPath },
+            window.location.origin
+          );
+        });
+      }
+    });
+  });
+</script>
+
+<style is:global>
+  .navi-page-theme-switcher,
+  .navi-page-theme-switcher__radio-group,
+  .navi-page-theme-switcher label:has(input:is([type='radio'], [type='checkbox'])) {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+  }
+
+  .navi-page-theme-switcher {
+    gap: 0.5rem 1rem;
+  }
+
+  .navi-page-theme-switcher__radio-group {
+    gap: 0.25rem;
+  }
+
+  .navi-page-theme-switcher__label,
+  .navi-page-theme-switcher label:has(input:is([type='radio'], [type='checkbox'])) {
+    font-size: clamp(0.7813rem, 0.7736rem + 0.0341vw, 0.8rem);
+    font-family: ui-monospace, monospace;
+    font-weight: normal;
+    text-transform: uppercase;
+  }
+
+  .navi-page-theme-switcher label:has(input:is([type='radio'], [type='checkbox'])) {
+    gap: 0.5rem;
+  }
+
+  .navi-page-theme-switcher label:has(input) input {
+    transform: translateY(-0.25ex); /* Optical adjustment. */
+  }
+</style>

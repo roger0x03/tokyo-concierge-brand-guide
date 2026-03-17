@@ -1,0 +1,27 @@
+---
+import '@repo/css/regions/browser-clips-slide';
+
+import Slide from '@repo/ui/Slide';
+import BrowserChrome from '@repo/ui/BrowserChrome';
+import MarkdownText from '@repo/ui/MarkdownText';
+
+const { min, max, caption, ...rest } = Astro.props;
+---
+
+<div class="browser-clips-slide">
+  <Slide {...rest}>
+    <figure class="flow">
+      <div class="sidebar">
+        {min && <BrowserChrome src={min.src} alt={min.alt} variant="min" />}
+        {max && <BrowserChrome src={max.src} alt={max.alt} />}
+      </div>
+      {
+        caption && (
+          <figcaption>
+            <MarkdownText content={caption} />
+          </figcaption>
+        )
+      }
+    </figure>
+  </Slide>
+</div>

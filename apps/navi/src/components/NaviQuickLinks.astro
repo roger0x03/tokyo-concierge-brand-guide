@@ -1,0 +1,29 @@
+---
+const { heading, links } = Astro.props;
+const currentPath = Astro.url.pathname;
+---
+
+<div class="navi-quick-links">
+  {heading && <h2 class="navi-quick-links__heading">{heading}</h2>}
+  {
+    links.length > 0 && (
+      <ul class="navi-quick-links__list" role="list">
+        {links.map(({ href, label }) => {
+          const isActive = currentPath === href;
+          return (
+            <li>
+              <a
+                href={href}
+                aria-current={isActive ? 'page' : undefined}
+                class="navi-quick-links__item"
+              >
+                {isActive && <span aria-hidden="true">→ </span>}
+                <span class="navi-quick-links__label">{label}</span>
+              </a>
+            </li>
+          );
+        })}
+      </ul>
+    )
+  }
+</div>

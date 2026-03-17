@@ -1,0 +1,65 @@
+---
+import NaviBaseLayout from '@layouts/NaviBaseLayout.astro';
+import NaviQuickLinks from '@components/NaviQuickLinks.astro';
+import NaviCategoryQuickLinks from '@components/NaviCategoryQuickLinks.astro';
+import NaviTableOfContents from '@components/NaviTableOfContents.astro';
+import NaviBadge from '@components/NaviBadge.astro';
+import { getGroupedPatterns } from '@utils/groupedPatterns';
+import { navi } from '@data/naviConfig';
+
+const { title, toc, badge, category } = Astro.props;
+
+// Grab all of the data files so we can process them into the quick links.
+const dataFiles = import.meta.glob('../data/patternData/*.js', { eager: true });
+
+// Group components by their 'category' key and return them in a sorted order.
+const { orderedCategories, componentsByCategory } = getGroupedPatterns(dataFiles);
+---
+
+<NaviBaseLayout title={title}>
+  <div class="navi-pattern-library">
+    <div class="sidebar">
+      <nav class="navi-pattern-library__nav flow" aria-label="design system">
+        {
+          navi.config.quickLinks.map(({ heading, links }) => (
+            <>
+              <NaviQuickLinks heading={heading} links={links} />
+              <hr />
+            </>
+          ))
+        }
+        <NaviCategoryQuickLinks
+          categories={orderedCategories}
+          componentsByCategory={componentsByCategory}
+        />
+      </nav>
+      <div class="navi-pattern-library__body flow">
+        <div class="repel">
+          <h1>{title}</h1>
+          <dl class="navi-pattern-library__pattern-meta-info cluster">
+            {
+              category && (
+                <>
+                  <dt>Category:</dt>
+                  <dd>{category}</dd>
+                </>
+              )
+            }
+            {
+              badge && (
+                <>
+                  <dt>Status:</dt>
+                  <dd>
+                    <NaviBadge {...badge} />
+                  </dd>
+                </>
+              )
+            }
+          </dl>
+        </div>
+        <NaviTableOfContents toc={toc} />
+        <slot />
+      </div>
+    </div>
+  </div>
+</NaviBaseLayout>

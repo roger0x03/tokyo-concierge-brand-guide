@@ -1,0 +1,75 @@
+---
+import { highlight } from '@utils/highlighter';
+const { code, lang = 'javascript' } = Astro.props;
+
+let html = '';
+if (code) {
+  html = await highlight(code, lang);
+}
+---
+
+<navi-code-block>
+  <div class="navi-code-block">
+    <div class="navi-code-block__header">
+      <dl>
+        <dt class="visually-hidden">Code language</dt>
+        <dd>{lang}</dd>
+      </dl>
+      <div class="navi-code-block__action">
+        <button type="button" data-copy-button>
+          <span>Copy to clipboard</span>
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            aria-hidden="true"
+            focusable="false"
+            fill="none"
+            viewBox="0 0 16 16"
+          >
+            <path
+              fill="currentColor"
+              d="M11.5 4.5V1H1v10.5h3.5V15H15V4.5zm-7 5.833H2.167V2.167h8.166V4.5H4.5zm9.333 3.5H5.667V5.667h8.166z"
+            ></path>
+          </svg>
+        </button>
+        <div class="navi-code-block__alert" role="alert" aria-live="polite" data-alert hidden>
+          <span>Code Copied!</span>
+        </div>
+      </div>
+    </div>
+
+    {
+      html && (
+        <div class="navi-code-block__body" data-code>
+          <Fragment set:html={html} />
+        </div>
+      )
+    }
+  </div>
+</navi-code-block>
+
+<script>
+  class NaviCodeBlock extends HTMLElement {
+    connectedCallback() {
+      const button = this.querySelector<HTMLButtonElement>('[data-copy-button]');
+      const codeContainer = this.querySelector<HTMLElement>('[data-code]');
+      const alertContainer = this.querySelector<HTMLElement>('[data-alert]');
+
+      if (!button || !codeContainer || !alertContainer) return;
+
+      button.addEventListener('click', async () => {
+        try {
+          await navigator.clipboard.writeText(codeContainer.innerText);
+          alertContainer.hidden = false;
+
+          setTimeout(() => {
+            alertContainer.hidden = true;
+          }, 2000);
+        } catch (err) {
+          console.error('Failed to copy the code:', err);
+        }
+      });
+    }
+  }
+
+  customElements.define('navi-code-block', NaviCodeBlock);
+</script>

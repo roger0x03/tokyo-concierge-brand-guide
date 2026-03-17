@@ -1,0 +1,39 @@
+{
+  "name": "@repo/css",
+  "version": "0.0.1",
+  "type": "module",
+  "scripts": {
+    "clean": "rm -r -f dist && mkdir dist",
+    "dev": "yarn clean && postcss src/*.css src/blocks/*.css src/regions/*.css src/sugarcube/**/*.css src/pages/*.css --base src --dir dist --watch & yarn watch:changes",
+    "watch:changes": "chokidar 'dist/**/*.css' --initial -c 'rm -rf ../../public/css && mkdir -p ../../public/css && cp -r dist/* ../../public/css/'",
+    "build": "yarn clean && NODE_ENV=production postcss src/*.css src/blocks/*.css src/regions/*.css src/sugarcube/**/*.css src/pages/*.css --base src --dir dist && rm -rf ../../public/css && mkdir -p ../../public/css && cp -r dist/* ../../public/css/"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@csstools/postcss-global-data": "^2.1.1",
+    "clean-css": "^5.3.2",
+    "concurrently": "^8.2.2",
+    "cssnano": "^6.0.1",
+    "postcss": "^8.4.31",
+    "postcss-cli": "^10.1.0",
+    "postcss-custom-media": "^10.0.6",
+    "postcss-custom-properties": "^14.0.4",
+    "postcss-import": "^15.1.0",
+    "postcss-import-ext-glob": "^2.1.1",
+    "postcss-preset-env": "^10.1.5"
+  },
+  "exports": {
+    "./theme": "./dist/theme.css",
+    "./global": "./dist/global.css",
+    "./blocks/*": "./dist/blocks/*.css",
+    "./regions/*": "./dist/regions/*.css",
+    "./sugarcube/global/*": "./src/sugarcube/global/*.css",
+    "./sugarcube/utilities/*": "./src/sugarcube/utilities/*.css",
+    "./pages/*": "./dist/pages/*.css"
+  },
+  "files": [
+    "dist"
+  ]
+}

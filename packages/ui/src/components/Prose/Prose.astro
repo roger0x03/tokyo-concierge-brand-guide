@@ -1,0 +1,10 @@
+---
+import '@repo/css/blocks/prose';
+
+import MarkdownText from '@repo/ui/MarkdownText';
+
+// Prose.astro
+const { content } = Astro.props;
+---
+
+<MarkdownText className="prose flow" content={content} />

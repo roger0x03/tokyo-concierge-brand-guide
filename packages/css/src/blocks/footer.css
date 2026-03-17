@@ -1,0 +1,62 @@
+.footer {
+  --text-size-heading-2: var(--size-step-1);
+  --repel-vertical-alignment: baseline;
+  --cluster-vertical-alignment: baseline;
+
+  padding-block-start: var(--space-l);
+  margin-block-start: var(--space-l);
+  border-block-start: var(--stroke);
+  font-size: var(--size-step--1);
+}
+
+.footer[data-footer-is-concealed] {
+  opacity: 0;
+  position: relative;
+
+  /* Provides a bit more buffer for hovering */
+  &::after {
+    content: '';
+    display: block;
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    background: transparent;
+  }
+}
+
+.footer[data-footer-is-concealed]:is(:hover, :focus-within) {
+  opacity: 1;
+  transition: opacity 300ms ease-in-out;
+}
+
+.footer nav a {
+  display: flex;
+  gap: var(--space-xs);
+  align-items: baseline;
+}
+
+.footer nav a:first-child:not(:only-child) svg {
+  transform: rotate(-180deg);
+}
+
+.footer__header {
+  --cluster-gutter: var(--space-xs) var(--space-m);
+}
+
+.footer__page {
+  border: var(--stroke);
+  flex-shrink: 0;
+  display: grid;
+  place-items: center;
+  align-self: center;
+  border-radius: 50%;
+
+  /* Fixed dimensions ensure a proper circle and not an oval */
+  width: 1.75em;
+  height: 1.75em;
+
+  /* Optical adjustment */
+  transform: translateY(-0.25ex);
+}

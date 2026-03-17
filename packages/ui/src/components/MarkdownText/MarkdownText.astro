@@ -1,0 +1,14 @@
+---
+import { marked } from 'marked';
+
+const { content, className } = Astro.props;
+const parsedMarkdown = marked.parse(content);
+---
+
+{
+  !className ? (
+    <Fragment set:html={parsedMarkdown} />
+  ) : (
+    <div class={className} set:html={parsedMarkdown} />
+  )
+}

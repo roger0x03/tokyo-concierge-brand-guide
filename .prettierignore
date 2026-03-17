@@ -1,0 +1,15 @@
+dist
+node_modules
+.github
+.turbo
+.vercel
+.husky
+.prettierignore
+.stylelintignore
+.eslintignore
+turbo.json
+package.json
+README.md
+
+# Ignore generated CSS file(s)
+**/*.gen.css

@@ -1,0 +1,27 @@
+---
+import NaviMetaInfo from '@components/NaviMetaInfo.astro';
+import NaviSiteHeader from '@components/NaviSiteHeader.astro';
+import NaviSiteFooter from '@components/NaviSiteFooter.astro';
+import '../css/global.css';
+
+const { title } = Astro.props;
+
+const canonicalURL = new URL(Astro.url.pathname, Astro.site);
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <meta name="generator" content={Astro.generator} />
+    <NaviMetaInfo title={title} canonicalURL={canonicalURL} />
+  </head>
+  <body>
+    <NaviSiteHeader />
+    <main tabindex="-1" id="main-content">
+      <slot />
+    </main>
+    <NaviSiteFooter />
+  </body>
+</html>

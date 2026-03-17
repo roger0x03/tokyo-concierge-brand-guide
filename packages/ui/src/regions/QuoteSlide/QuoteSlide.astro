@@ -1,0 +1,20 @@
+---
+import '@repo/css/regions/quote-slide';
+
+import Slide from '@repo/ui/Slide';
+import Lede from '@repo/ui/Lede';
+import MarkdownText from '@repo/ui/MarkdownText';
+
+const { quote, cite, ...rest } = Astro.props;
+---
+
+<div class="quote-slide">
+  <Slide {...rest}>
+    <div class="flow">
+      <blockquote>
+        <MarkdownText class="flow" content={quote} />
+        {cite && <footer class="quote-slide__cite">{cite}</footer>}
+      </blockquote>
+    </div>
+  </Slide>
+</div>

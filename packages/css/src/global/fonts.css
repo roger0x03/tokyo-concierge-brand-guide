@@ -1,0 +1,64 @@
+/* @font-face here */
+@font-face {
+  font-family: 'HafferMedium';
+  src: url('/fonts/HafferMedium.woff2') format('woff2');
+  font-weight: 500;
+  font-style: normal;
+  font-display: block;
+}
+
+@font-face {
+  font-family: 'HafferMedium';
+  src: url('/fonts/HafferMediumItalic.woff2') format('woff2');
+  font-weight: 500;
+  font-style: italic;
+  font-display: block;
+}
+
+@font-face {
+  font-family: 'HafferXH';
+  src: url('/fonts/HafferXHBold.woff2') format('woff2');
+  font-weight: 700;
+  font-style: normal;
+  font-display: block;
+}
+
+@font-face {
+  font-family: 'HafferXH';
+  src: url('/fonts/HafferXHBoldItalic.woff2') format('woff2');
+  font-weight: 700;
+  font-style: italic;
+  font-display: block;
+}
+
+@font-face {
+  font-family: 'Saans';
+  src: url('/fonts/SaansBold.woff2') format('woff2');
+  font-weight: 700;
+  font-style: normal;
+  font-display: block;
+}
+
+@font-face {
+  font-family: 'Saans';
+  src: url('/fonts/SaansMedium.woff2') format('woff2');
+  font-weight: 500;
+  font-style: normal;
+  font-display: block;
+}
+
+@font-face {
+  font-family: 'Saans';
+  src: url('/fonts/SaansRegular.woff2') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+  font-display: block;
+}
+
+@font-face {
+  font-family: 'Saans';
+  src: url('/fonts/SaansRegularItalic.woff2') format('woff2');
+  font-weight: 400;
+  font-style: italic;
+  font-display: block;
+}

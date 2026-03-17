@@ -1,0 +1,10 @@
+{
+  "name": "@repo/data",
+  "version": "0.0.1",
+  "private": true,
+  "license": "MIT",
+  "exports": {
+    "./siteData": "./src/siteData.ts",
+    "./homePageData": "./src/homePageData.ts"
+  }
+}

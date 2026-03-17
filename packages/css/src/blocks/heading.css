@@ -1,0 +1,28 @@
+.heading {
+  font-size: var(--heading-font-size, var(--size-step-7));
+  line-height: var(--leading-tight);
+}
+
+.heading[data-heading-variant='minor'] {
+  --heading-font-size: var(--size-step-6);
+}
+
+@media (--xl) {
+  .heading[data-heading-variant='major'] {
+    --heading-font-size: var(--size-step-8);
+  }
+}
+
+@media (--2xl) {
+  .heading {
+    --heading-font-size: var(--size-step-9);
+  }
+
+  .heading[data-heading-variant='major'] {
+    --heading-font-size: var(--size-step-10);
+  }
+
+  .heading[data-heading-variant='minor'] {
+    --heading-font-size: var(--size-step-8);
+  }
+}

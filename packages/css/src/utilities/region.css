@@ -1,0 +1,22 @@
+/* 
+REGION UTILITY
+Consistent block padding for page sections
+*/
+.region {
+  padding-block-start: var(--region-space);
+  padding-block-end: var(--region-space);
+}
+
+/* Variants */
+.region[data-flush='all'] {
+  padding-block-start: 0;
+  padding-block-end: 0;
+}
+
+.region[data-flush='top'] {
+  padding-block-start: 0;
+}
+
+.region[data-flush='bottom'] {
+  padding-block-end: 0;
+}

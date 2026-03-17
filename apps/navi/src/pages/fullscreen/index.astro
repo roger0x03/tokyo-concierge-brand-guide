@@ -1,0 +1,54 @@
+---
+import NaviFullscreenLayout from '@layouts/NaviFullscreenLayout.astro';
+import NaviHydratedWrapper from '@components/NaviHydratedWrapper.jsx';
+import { getPatternWhitelist, getVariantProps } from '@utils/patternData';
+
+// Load component data dynamically (each file contains the component import).
+const dataFiles: Record<string, { default: Record<string, any> }> = import.meta.glob(
+  '../../data/patternData/*.js',
+  { eager: true }
+);
+
+// Generate map of all available components.
+const componentWhitelist = getPatternWhitelist(dataFiles);
+
+const url = new URL(Astro.request.url);
+// Grab the component.
+const component = url.searchParams.get('pattern')?.toLowerCase() || '';
+// Grab the variant.
+const variantKey = url.searchParams.get('variant') || 'default';
+
+// Look up the component against the whitelist.
+const entry = componentWhitelist[component];
+
+if (!entry) return new Response('Component Not Found', { status: 404 });
+
+// Grab the pattern data.
+const patternData = entry.data;
+// Set the name.
+const componentName = entry.originalName;
+// Set the component.
+const Component = patternData.component;
+// Grab the props.
+const props = getVariantProps(patternData, variantKey);
+// Get the children.
+const children = props.children || '';
+// Set the page title.
+const title = `${entry.originalName} - Fullscreen`;
+---
+
+<NaviFullscreenLayout title={title} hideHeader={true} hideFooter={true}>
+  {
+    Component ? (
+      patternData.interactive ? (
+        <NaviHydratedWrapper client:load componentName={componentName} props={props}>
+          {children}
+        </NaviHydratedWrapper>
+      ) : (
+        <Component {...props}>{children}</Component>
+      )
+    ) : (
+      <p>Component not found!</p>
+    )
+  }
+</NaviFullscreenLayout>

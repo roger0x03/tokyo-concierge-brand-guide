@@ -1,0 +1,13 @@
+{
+  "leading": {
+    "$type": "number",
+    "$description": "Ratio-based leading/line-height values.",
+    "tight": { "$value": 0.9 },
+    "flat": { "$value": 1 },
+    "fine": { "$value": 1.09 },
+    "slim": { "$value": 1.18 },
+    "short": { "$value": 1.36 },
+    "base": { "$value": 1.45 },
+    "loose": { "$value": 1.7 }
+  }
+}

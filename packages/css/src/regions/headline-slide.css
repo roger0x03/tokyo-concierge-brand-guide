@@ -1,0 +1,17 @@
+.headline-slide {
+  --lede-size: var(--size-step-3);
+  --global-style-li-font-size: var(--lede-size);
+  --lede-measure: 50ch;
+  --flow-space: var(--space-xl-2xl);
+}
+
+.headline-slide__icon {
+  color: var(--color-primary);
+  width: 3rem;
+  height: auto;
+  transform: translateY(0.1ex);
+}
+
+.headline-slide__content {
+  max-width: 80rem;
+}

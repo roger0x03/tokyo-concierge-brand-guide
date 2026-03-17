@@ -1,0 +1,29 @@
+.navi-swatch {
+  /* Sample */
+  --navi-swatch-sample-size: 2.5rem;
+  --navi-swatch-sample-aspect-ratio: 1 / 1;
+  --navi-swatch-sample-border: var(--stroke);
+  --navi-swatch-sample-radius: 50%;
+
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2xs) var(--space-xs);
+  align-items: center;
+}
+
+/* Sample */
+.navi-swatch__sample {
+  display: block;
+  width: var(--navi-swatch-sample-size);
+  aspect-ratio: var(--navi-swatch-sample-aspect-ratio);
+  border: var(--navi-swatch-sample-border);
+  border-radius: var(--navi-swatch-sample-radius);
+}
+
+/* Label */
+@media (max-width: 100em) {
+  .navi-swatch__label {
+    /* Force this to wrap on smaller viewports. */
+    min-width: 100%;
+  }
+}

@@ -1,0 +1,6 @@
+[data-user-theme='dark'] {
+  --color-global-bg: var(--color-dark);
+  --color-global-text: var(--color-light);
+
+  --button-bg: var(--color-mid);
+}

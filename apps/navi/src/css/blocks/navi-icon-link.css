@@ -1,0 +1,28 @@
+.navi-icon-link {
+  --global-style-svg-height: 1.2cap;
+  --navi-icon-link-gutter: var(--space-2xs);
+  --navi-icon-link-vertical-alignment: center;
+  --navi-icon-link-horizontal-alignment: flex-start;
+  --navi-icon-link-font-size: var(--size-step--1);
+  --navi-icon-link-font-weight: var(--font-bold);
+  --navi-icon-link-text-transform: uppercase;
+
+  display: flex;
+  gap: var(--navi-icon-link-gutter);
+  align-items: var(--navi-icon-link-vertical-alignment);
+  justify-content: var(--navi-icon-link-horizontal-alignment);
+  color: currentColor;
+  text-decoration: none;
+  font-size: var(--navi-icon-link-font-size);
+  font-weight: var(--navi-icon-link-font-weight);
+  text-transform: var(--navi-icon-link-text-transform);
+}
+
+.navi-icon-link span {
+  text-box: var(--global-style-text-box-trim);
+}
+
+.navi-icon-link:hover span {
+  text-decoration: underline;
+  text-underline-offset: var(--global-style-link-hover-underline-offset);
+}

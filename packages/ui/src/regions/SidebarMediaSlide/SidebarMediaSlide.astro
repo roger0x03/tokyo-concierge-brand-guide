@@ -1,0 +1,27 @@
+---
+import '@repo/css/regions/sidebar-media-slide';
+
+import Slide from '@repo/ui/Slide';
+import Lede from '@repo/ui/Lede';
+import MarkdownText from '@repo/ui/MarkdownText';
+
+const { summary, src, alt, caption, cite, ...rest } = Astro.props;
+---
+
+<div class="sidebar-media-slide">
+  <Slide {...rest}>
+    <div class="sidebar">
+      <div>
+        <figure>
+          <img src={src} alt={alt} />
+          <figcaption><MarkdownText content={caption} /></figcaption>
+        </figure>
+      </div>
+      <div>
+        <Lede>
+          <MarkdownText className="flow" content={summary} />
+        </Lede>
+      </div>
+    </div>
+  </Slide>
+</div>

@@ -1,0 +1,45 @@
+---
+import '@repo/css/regions/media-assets-slide';
+
+import Slide from '@repo/ui/Slide';
+import Heading from '@repo/ui/Heading';
+import Button from '@repo/ui/Button';
+
+const { heading, mediaAssets, ...rest } = Astro.props;
+---
+
+<div class="media-assets-slide">
+  <Slide {...rest}>
+    <div class="flow">
+      <Heading variant="minor">{heading}</Heading>
+      <div>
+        <ul
+          class={`media-assets-slide__items ${mediaAssets.length > 2 ? 'grid' : ''}`}
+          role="list"
+          data-layout={mediaAssets.length > 4 ? 'thirds' : 'halves'}
+        >
+          {
+            mediaAssets.map((asset) => (
+              <li class="media-assets-slide__item" data-variant={asset.variant}>
+                <figure>
+                  <img src={asset.src} alt={asset.alt} width={asset.width} height={asset.height} />
+                  <figcaption class="repel">
+                    <p>{asset.name}</p>
+                    {asset.download && (
+                      <Button
+                        src={asset.download.src}
+                        label={asset.download.label}
+                        variant={asset.variant === 'dark' ? 'secondary' : undefined}
+                        restAttributes={{ download: true }}
+                      />
+                    )}
+                  </figcaption>
+                </figure>
+              </li>
+            ))
+          }
+        </ul>
+      </div>
+    </div>
+  </Slide>
+</div>

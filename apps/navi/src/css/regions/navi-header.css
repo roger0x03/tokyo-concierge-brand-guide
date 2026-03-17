@@ -1,0 +1,4 @@
+.navi-header {
+  padding-block: var(--space-s);
+  border-block-end: var(--stroke);
+}

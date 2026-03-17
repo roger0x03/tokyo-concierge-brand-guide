@@ -1,0 +1,28 @@
+.slide {
+  background: var(--slide-container-bg, var(--color-light));
+  view-transition-name: slide-content;
+
+  display: grid;
+  place-items: center;
+}
+
+.slide__inner {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  padding: var(--space-l);
+  max-width: 1920px;
+  aspect-ratio: 16/9;
+  background: var(--slide-bg, var(--color-light));
+  color: var(--slide-color, var(--color-dark));
+}
+
+.slide__content {
+  flex: auto;
+}
+
+@media (--2xl) {
+  .slide__inner {
+    overflow: hidden;
+  }
+}

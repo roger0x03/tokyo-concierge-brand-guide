@@ -1,0 +1,23 @@
+---
+import BaseLayout from '@layouts/BaseLayout.astro';
+import CoverSlide from '@repo/ui/CoverSlide';
+import { site } from '@repo/data/siteData';
+
+const data = {
+  summary: `
+Use your left or right arrow keys, hit the space bar or click the next and previous links to move on to the next slide.
+`,
+  next: '/slides/1/',
+  title: `Welcome`,
+  allowRobots: false,
+};
+---
+
+<BaseLayout title={data.title} summary={data.summary}>
+  <CoverSlide
+    summary={data.summary}
+    footerHeading={site.footerHeading}
+    footerByline={site.footerByline}
+    next={data.next}
+  />
+</BaseLayout>

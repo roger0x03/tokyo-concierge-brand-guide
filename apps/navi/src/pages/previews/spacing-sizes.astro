@@ -1,0 +1,64 @@
+---
+import NaviFullscreenLayout from '@layouts/NaviFullscreenLayout.astro';
+import spacing from '@repo/design-tokens/spacing.json';
+import { getValidEntries } from '@utils/validEntries';
+
+// Spacing
+const spacingData = spacing.space || {};
+
+// Filter out keys likes $type or $description
+const spacingEntries = getValidEntries(spacingData);
+
+// Set the page title.
+const title = `Spacing sizes`;
+---
+
+<NaviFullscreenLayout title={title} hideHeader={true} hideFooter={true}>
+  <div class="flow" style=" padding: 1.5rem;">
+    <table
+      id="spacing-scale"
+      style="--global-style-table-td-font-size: var(--size-step-00); --global-style-table-td-padding: var(--space-s) var(--space-s) var(--space-s) 0; "
+    >
+      <thead
+        style="--global-style-table-th-font-family: var(--font-base); --global-style-table-th-font-size: var(--size-step-0); --global-style-table-th-font-weight: var(--font-weight-bold); --global-style-table-th-padding: var(--space-s) var(--space-s) var(--space-s) 0;"
+      >
+        <tr>
+          <th>Preview</th>
+          <th>Name</th>
+          <th>Min</th>
+          <th>Max</th>
+        </tr>
+      </thead>
+      <tbody>
+        {
+          spacingEntries.length > 0 ? (
+            spacingEntries.map(([name, data]: [string, any]) => {
+              const formattedName = name.toUpperCase();
+              const varName = `var(--space-${name})`;
+              const value = data.$value;
+              const min = `${value.min.value}${value.min.unit}`;
+              const max = `${value.max.value}${value.max.unit}`;
+
+              return (
+                <tr>
+                  <td>
+                    <div
+                      style={`background: black; border: 1px solid white; width: 100px; min-height: ${varName}`}
+                    />
+                  </td>
+                  <td>{formattedName}</td>
+                  <td>{min}</td>
+                  <td>{max}</td>
+                </tr>
+              );
+            })
+          ) : (
+            <tr>
+              <td colspan="4">No spacing entries available.</td>
+            </tr>
+          )
+        }
+      </tbody>
+    </table>
+  </div>
+</NaviFullscreenLayout>

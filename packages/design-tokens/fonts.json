@@ -1,0 +1,22 @@
+{
+  "font": {
+    "$type": "fontFamily",
+    "$description": "Each array of fonts creates a priority-based order. The first font in the array should be the ideal font, followed by sensible, web-safe fallbacks.",
+    "base": {
+      "$value": ["Saans", "system-ui", "sans-serif"],
+      "$description": "System fonts for body copy and globally set text."
+    },
+    "display": {
+      "$value": ["HafferMedium", "system-ui", "sans-serif"],
+      "$description": "Headings and display contexts."
+    },
+    "statement": {
+      "$value": ["HafferXH", "system-ui", "sans-serif"],
+      "$description": "Fonts used to create emphasis or add typographic contrast."
+    },
+    "mono": {
+      "$value": ["ui-monospace", "monospace"],
+      "$description": "Monospace font for code samples etc."
+    }
+  }
+}

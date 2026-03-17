@@ -1,0 +1,6 @@
+.lede {
+  font-size: var(--lede-size, var(--size-step-2));
+  line-height: var(--leading-short);
+  max-width: var(--lede-measure, 45ch);
+  text-wrap: balance;
+}

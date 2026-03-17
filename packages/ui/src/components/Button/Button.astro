@@ -1,0 +1,8 @@
+---
+import '@repo/css/blocks/button';
+
+// Button.astro
+const { src, label, variant, restAttributes } = Astro.props;
+---
+
+<a class="button" href={src} data-variant={variant} {...restAttributes}>{label}</a>

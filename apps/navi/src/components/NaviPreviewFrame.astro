@@ -1,0 +1,101 @@
+---
+const { src, ...rest } = Astro.props;
+
+// Set a unique id to use for the range inputs and labels
+const uniqueId = `range-${Math.random().toString(36).slice(2)}`;
+---
+
+<navi-preview-frame>
+  <figure class="navi-preview-frame">
+    <div class="navi-preview-frame__inner">
+      <div class="navi-preview-frame__header">
+        <h3 class="navi-preview-frame__heading">Preview</h3>
+      </div>
+      <iframe src={src} {...rest}></iframe>
+      <div class="navi-preview-frame__controls">
+        <!-- Action -->
+        <div class="navi-preview-frame__action" data-action-type="buttons">
+          <span id="preview-resize-label" class="navi-preview-frame__label">Quick resize:</span>
+          <div
+            class="navi-preview-frame__button-group"
+            role="group"
+            aria-labelledby="preview-resize-label"
+          >
+            <button type="button" data-width="30" aria-pressed="false">SM</button>
+            <button type="button" data-width="50" aria-pressed="false">MD</button>
+            <button type="button" data-width="80" aria-pressed="false">LG</button>
+            <button type="button" data-width="100" aria-pressed="false">
+              <span>Reset</span>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 16 16"
+                aria-hidden="true"
+                focusable="false"
+              >
+                <path
+                  fill="currentColor"
+                  d="M13.963 8.653A6 6 0 0 1 8 14a5.98 5.98 0 0 1-4.509-2.05l.83-1.089A4.66 4.66 0 0 0 8 12.667a4.67 4.67 0 0 0 4.615-4.014h-1.948l2.666-3.5L16 8.653zM3.387 7.333a4.67 4.67 0 0 1 4.613-4c1.491 0 2.819.706 3.673 1.799l.83-1.088A5.98 5.98 0 0 0 8 2a6 6 0 0 0-5.96 5.333H0l2.667 3.5 2.666-3.5z"
+                ></path>
+              </svg>
+            </button>
+          </div>
+        </div>
+        <!-- Action -->
+        <div class="navi-preview-frame__action" data-action-type="range-slider">
+          <label for={uniqueId} class="navi-preview-frame__label">Resize viewport</label>
+          <input type="range" id={uniqueId} min="30" max="100" value="100" step="1" />
+        </div>
+      </div>
+    </div>
+  </figure>
+</navi-preview-frame>
+
+<script>
+  class NaviPreviewFrame extends HTMLElement {
+    connectedCallback() {
+      const buttons = this.querySelectorAll<HTMLButtonElement>('button[data-width]');
+      const rangeInput = this.querySelector<HTMLInputElement>('input[type="range"]');
+      const previewFrame = this.querySelector<HTMLElement>('.navi-preview-frame');
+      // const mask = this.querySelector<HTMLElement>('.navi-preview-frame__mask');
+
+      const updateSize = (size: string) => {
+        // Hide the preview frame mask on first interaction.
+        // mask?.remove();
+
+        // Set the preview frame custom property based on the size.
+        previewFrame?.style.setProperty('--iframe-width', size);
+
+        // If the range slider is shown set the value to the size.
+        if (rangeInput) {
+          rangeInput.value = size;
+        }
+
+        buttons.forEach((button) => {
+          const buttonWidth = button.getAttribute('data-width');
+          // Set the current button aria-pressed 'true' if the size matches it's data-width.
+          // Reference: https://lea0.verou.me/2022/07/button-group/
+          button.setAttribute('aria-pressed', buttonWidth === size ? 'true' : 'false');
+        });
+      };
+
+      buttons.forEach((button) => {
+        button.addEventListener('click', () => {
+          // Get the size from the data attribute.
+          const size = button.getAttribute('data-width');
+          // Update the frame size.
+          updateSize(size);
+        });
+      });
+
+      rangeInput?.addEventListener('input', (e) => {
+        // Find the target range input.
+        const inputTarget = e.target as HTMLInputElement;
+        // Update the frame size.
+        updateSize(inputTarget.value);
+      });
+    }
+  }
+
+  customElements.define('navi-preview-frame', NaviPreviewFrame);
+</script>

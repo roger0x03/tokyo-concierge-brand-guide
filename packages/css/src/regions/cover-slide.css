@@ -1,0 +1,9 @@
+.cover-slide {
+  --slide-bg: var(--color-dark);
+  --slide-color: var(--color-light);
+  --flow-space: var(--space-xl);
+}
+
+.cover-slide svg {
+  max-width: 60rem;
+}

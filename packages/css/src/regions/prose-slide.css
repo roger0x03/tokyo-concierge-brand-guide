@@ -1,0 +1,26 @@
+.prose-slide {
+  --global-style-hr-space: var(--space-l);
+  --switcher-target-container-width: 50rem;
+}
+
+.prose-slide__header {
+  --flow-space: var(--space-2xs);
+}
+
+.prose-slide .lede {
+  margin-block-end: var(--space-l);
+}
+
+.prose-slide .prose p:has(img) {
+  --flow-space: var(--space-xl);
+}
+
+.prose-slide .switcher > * {
+  container-type: inline-size;
+}
+
+@container (width < 70vi) {
+  .prose-slide .switcher > :last-child img {
+    margin-inline-start: auto;
+  }
+}

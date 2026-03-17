@@ -1,0 +1,26 @@
+.browser-chrome {
+  --browser-chrome-radius: 1.5rem;
+  --browser-chrome-radius-min: 0.5rem;
+  --browser-chrome-padding: 0.5rem;
+
+  overflow: hidden;
+  background: var(--browser-chrome-color, var(--color-dark));
+  padding: var(--browser-chrome-padding);
+  border-radius: calc(var(--browser-chrome-radius) + var(--browser-chrome-padding));
+  max-width: var(--browser-chrome-max-width, 60rem);
+}
+
+.browser-chrome img {
+  width: 100%;
+  border-radius: var(--browser-chrome-radius);
+  aspect-ratio: var(--browser-chrome-aspect-ratio, 16/9.2);
+  object-fit: cover;
+  object-position: top;
+}
+
+.browser-chrome[data-browser-chrome-variant='min'] {
+  --browser-chrome-aspect-ratio: 9/16;
+  --browser-chrome-max-width: 20rem;
+  --browser-chrome-radius: 1rem;
+  --browser-chrome-radius-min: 0.25rem;
+}

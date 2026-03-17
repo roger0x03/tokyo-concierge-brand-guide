@@ -1,0 +1,196 @@
+---
+import NaviPatternLibrary from '@layouts/NaviPatternLibrary.astro';
+import NaviPreviewFrame from '@components/NaviPreviewFrame.astro';
+import NaviOverflow from '@components/NaviOverflow.astro';
+import NaviToolbar from '@components/NaviToolbar.astro';
+import spacing from '@repo/design-tokens/spacing.json';
+import { getValidEntries } from '@utils/validEntries';
+
+// Access the nested space object.
+const spacingData = spacing.space || {};
+
+// Grab the description.
+const description = spacingData['$description'];
+
+// Filter out keys likes $type or $description
+const spacingEntries = getValidEntries(spacingData);
+
+// Table of contents
+const toc = [
+  {
+    text: 'Usage',
+    slug: 'usage',
+  },
+  {
+    text: 'Margin',
+    slug: 'margin',
+  },
+  {
+    text: 'Padding',
+    slug: 'padding',
+  },
+];
+---
+
+<NaviPatternLibrary title="Spacing" toc={toc}>
+  <NaviToolbar />
+  {description && <p>{description}</p>}
+
+  <NaviPreviewFrame src="/previews/spacing-sizes?&showToolbar=false" />
+
+  <h2 id="usage">Usage</h2>
+
+  <NaviOverflow>
+    <table>
+      <thead>
+        <tr>
+          <th>Flow Space Utility</th>
+          <th>Gutter Utility</th>
+          <th>CSS Custom Property</th>
+        </tr>
+      </thead>
+      <tbody>
+        {
+          spacingEntries.length > 0 ? (
+            spacingEntries.map(([name]) => {
+              return (
+                <tr>
+                  <td>
+                    <code>.flow-space-{name}</code>
+                  </td>
+                  <td>
+                    <code>.gutter-{name}</code>
+                  </td>
+                  <td>
+                    <code>var(--space-{name})</code>
+                  </td>
+                </tr>
+              );
+            })
+          ) : (
+            <tr>
+              <td colspan="3">No spacing entries available.</td>
+            </tr>
+          )
+        }
+      </tbody>
+    </table>
+  </NaviOverflow>
+
+  <h2 id="margin">Margin</h2>
+
+  <NaviOverflow>
+    <table>
+      <thead>
+        <tr>
+          <th>Margin <small>(all sides)</small></th>
+          <th>Margin Top</th>
+          <th>Margin Right</th>
+          <th>Margin Bottom</th>
+          <th>Margin Left</th>
+          <th>Margin Horizontal</th>
+          <th>Margin Vertical</th>
+        </tr>
+      </thead>
+      <tbody>
+        {
+          spacingEntries.length > 0 ? (
+            spacingEntries.map(([name]) => {
+              return (
+                <tr>
+                  <td>
+                    <code>var(--m-{name})</code>
+                  </td>
+                  <td>
+                    <code>var(--mt-{name})</code>
+                  </td>
+                  <td>
+                    <code>var(--mr-{name})</code>
+                  </td>
+                  <td>
+                    <code>var(--mb-{name})</code>
+                  </td>
+                  <td>
+                    <code>var(--ml-{name})</code>
+                  </td>
+                  <td>
+                    <code>var(--mx-{name})</code>
+                  </td>
+                  <td>
+                    <code>var(--my-{name})</code>
+                  </td>
+                </tr>
+              );
+            })
+          ) : (
+            <tr>
+              <td colspan="7">No spacing entries available.</td>
+            </tr>
+          )
+        }
+      </tbody>
+    </table>
+  </NaviOverflow>
+
+  <h2 id="padding">Padding</h2>
+
+  <NaviOverflow>
+    <table>
+      <thead>
+        <tr>
+          <th>Padding <small>(all sides)</small></th>
+          <th>Padding Top</th>
+          <th>Padding Right</th>
+          <th>Padding Bottom</th>
+          <th>Padding Left</th>
+          <th>Padding Horizontal</th>
+          <th>Padding Vertical</th>
+        </tr>
+      </thead>
+      <tbody>
+        {
+          spacingEntries.length > 0 ? (
+            spacingEntries.map(([name]) => {
+              return (
+                <tr>
+                  <td>
+                    <code>var(--p-{name})</code>
+                  </td>
+                  <td>
+                    <code>var(--pt-{name})</code>
+                  </td>
+                  <td>
+                    <code>var(--pr-{name})</code>
+                  </td>
+                  <td>
+                    <code>var(--pb-{name})</code>
+                  </td>
+                  <td>
+                    <code>var(--pl-{name})</code>
+                  </td>
+                  <td>
+                    <code>var(--px-{name})</code>
+                  </td>
+                  <td>
+                    <code>var(--py-{name})</code>
+                  </td>
+                </tr>
+              );
+            })
+          ) : (
+            <tr>
+              <td colspan="7">No spacing entries available.</td>
+            </tr>
+          )
+        }
+      </tbody>
+    </table>
+  </NaviOverflow>
+</NaviPatternLibrary>
+
+<style>
+  table code {
+    display: inline-block;
+    width: max-content;
+  }
+</style>

@@ -1,0 +1,9 @@
+body {
+  --color-global-bg: peachpuff;
+  --color-global-text: black;
+}
+
+[data-user-theme='dark'] body {
+  --color-global-bg: coral;
+  --color-global-text: black;
+}

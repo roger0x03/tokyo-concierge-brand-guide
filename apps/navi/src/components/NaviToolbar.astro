@@ -1,0 +1,52 @@
+---
+import NaviThemeToggle from '@components/NaviThemeToggle.astro';
+import NaviPageThemeSwitcher from '@components/NaviPageThemeSwitcher.astro';
+---
+
+<div class="navi-toolbar">
+  <span class="navi-toolbar__label">Theme toggle:</span>
+  <NaviThemeToggle />
+  <NaviPageThemeSwitcher />
+</div>
+
+<style is:global>
+  .navi-toolbar {
+    display: flex;
+    flex-wrap: wrap;
+    gap: clamp(0.875rem, 0.8494rem + 0.1136vw, 0.9375rem);
+    align-items: center;
+    justify-content: center;
+    padding: clamp(0.875rem, 0.8494rem + 0.1136vw, 0.9375rem);
+    width: 100%;
+    background-color: #fefbf6;
+    color: #2b2b2b;
+    border-block-start: 1px solid #2b2b2b;
+
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    z-index: 999;
+  }
+
+  .navi-toolbar__label {
+    font-family: ui-monospace, monospace;
+    font-size: clamp(0.7813rem, 0.7736rem + 0.0341vw, 0.8rem);
+    text-transform: uppercase;
+  }
+</style>
+
+<script is:inline>
+  const getNaviToolbarHeight = () => {
+    const naviToolbar = document.querySelector('.navi-toolbar');
+
+    if (naviToolbar) {
+      // Get the height of the navi toolbar.
+      const height = naviToolbar.offsetHeight;
+      // Set this as a custom property on the main content wrapper.
+      document.documentElement.style.setProperty('--navi-toolbar-height', `${height}px`);
+    }
+  };
+
+  window.addEventListener('DOMContentLoaded', getNaviToolbarHeight);
+  window.addEventListener('resize', getNaviToolbarHeight);
+</script>

@@ -1,0 +1,76 @@
+.navi-table-of-contents {
+  /* Defaults */
+  --navi-table-of-contents-gutter: var(--space-xs);
+  --navi-table-of-contents-border-block: var(--stroke);
+  --navi-table-of-contents-margin-block: var(--space-s) var(--space-xl);
+  --navi-table-of-contents-padding-block: var(--space-s);
+  --navi-table-of-contents-font-size: var(--size-step--1);
+  --navi-table-of-contents-font-weight: var(--font-bold);
+  /* Label */
+  --navi-table-of-contents-label-font-size: var(--size-step-00);
+  --navi-table-of-contents-label-text-transform: uppercase;
+
+  display: flex;
+  align-items: baseline;
+  border-block: var(--navi-table-of-contents-border-block);
+  margin-block: var(--navi-table-of-contents-margin-block);
+  padding-block: var(--navi-table-of-contents-padding-block);
+  font-size: var(--navi-table-of-contents-font-size);
+  font-weight: var(--navi-table-of-contents-font-weight);
+  gap: var(--navi-table-of-contents-gutter);
+}
+
+/* Label */
+.navi-table-of-contents__label {
+  flex-shrink: 0;
+  text-transform: var(--navi-table-of-contents-label-text-transform);
+  font-size: var(--navi-table-of-contents-label-font-size);
+}
+
+/* List */
+.navi-table-of-contents__list {
+  display: flex;
+  display: flex;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  -webkit-overflow-scrolling: touch;
+  /* Add padding below the list / above the scrollbar. */
+  padding-block-end: var(--can-scroll);
+
+  /* https://www.bram.us/2023/09/16/solved-by-css-scroll-driven-animations-detect-if-an-element-can-scroll-or-not/ */
+  animation: detect-scroll linear;
+  animation-timeline: scroll(self inline);
+}
+
+@keyframes detect-scroll {
+  from,
+  to {
+    --can-scroll: var(--scroll-bar-offset);
+  }
+}
+
+.navi-table-of-contents__list li {
+  display: flex;
+  flex-shrink: 0;
+}
+
+.navi-table-of-contents__list li + li::before {
+  content: '/';
+  display: block;
+  margin-inline: var(--navi-table-of-contents-gutter);
+}
+
+/* Scrollbar */
+.navi-table-of-contents__list::-webkit-scrollbar {
+  block-size: var(--scroll-bar-size);
+}
+
+.navi-table-of-contents__list::-webkit-scrollbar-track {
+  background-color: var(--scroll-bar-track-color);
+  border-radius: var(--scroll-bar-radius);
+}
+
+.navi-table-of-contents__list::-webkit-scrollbar-thumb {
+  background-color: var(--scroll-bar-thumb-color);
+  border-radius: var(--scroll-bar-radius);
+}

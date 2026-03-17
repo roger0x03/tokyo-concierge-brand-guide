@@ -1,0 +1,268 @@
+/*
+  CORE VARIABLES AND TOKENS
+*/
+:root {
+  --color-light: #fefbf6;
+  --color-light-shade: #d4d1cd;
+
+  --color-dark: #2b2b2b;
+  --color-dark-glare: #4b4a49;
+
+  --color-mid: #6a6968;
+  --color-mid-glare: #a6a5a4;
+
+  --color-primary: #e01616;
+  --color-primary-glare: #e64443;
+  --color-primary-shade: #bc1a1a;
+
+  --color-status-success: #8cd039;
+
+  --color-status-warning: #f5a03c;
+
+  --color-global-bg: var(--color-light);
+  --color-global-link-color: currentColor;
+  --color-global-text: var(--color-dark);
+  --color-selection-bg: var(--color-dark);
+  --color-selection-text: var(--color-light);
+  --flow-space: var(--space-xs);
+  --focus-color: var(--color-primary);
+  --focus-ring: 2px solid currentColor;
+  --focus-ring-offset: 2px;
+  --heading-kerning: var(--kerning-tight);
+  --heading-line-height: var(--leading-fine);
+  --heading-font-family: var(--font-display);
+  --heading-font-weight: var(--font-normal);
+  --font-base: system-ui, sans-serif;
+  --font-display: system-ui, sans-serif;
+  --font-mono: ui-monospace, monospace;
+  --font-normal: 400;
+  --font-medium: 500;
+  --font-bold: 700;
+  --font-black: 900;
+  --gutter: var(--space-s-m);
+  --gutter-l: var(--space-3xl);
+  --kerning: normal;
+  --kerning-loose: 0.05ch;
+  --kerning-tight: -0.04ch;
+  --kerning-caps: 0.1ch;
+  --leading: 1.45;
+  --leading-tight: 0.8;
+  --leading-short: 1.36;
+  --leading-slim: 1.18;
+  --leading-fine: 1.09;
+  --leading-flat: 1;
+  --leading-loose: 1.7;
+  --measure: 65ch;
+  --measure-heading-1: 30ch;
+  --measure-heading-2: 45ch;
+  --measure-heading-3: 45ch;
+  --measure-heading-4: 45ch;
+  --measure-heading-5: 45ch;
+  --measure-heading-6: 45ch;
+  --measure-l: 75ch;
+  --measure-m: 50ch;
+  --measure-s: 45ch;
+  --measure-xs: 20ch;
+  --radius: 0.5em;
+  --radius-l: 2em;
+  --radius-m: 1em;
+  --radius-s: 0.25em;
+  --container-max-width: 57rem;
+  --wrapper-max-width: 100%;
+  --region-space: var(--space-xl-2xl);
+  --stroke: 1px solid var(--stroke-color, currentColor);
+  --stroke-weight-heavy: 6px;
+  --stroke-weight-medium: 4px;
+  --stroke-weight-light: 1px;
+  --text-size-base: var(--size-step-0);
+  --text-size-heading-1: var(--size-step-4);
+  --text-size-heading-2: var(--size-step-3);
+  --text-size-heading-3: var(--size-step-2);
+  --text-size-heading-4: var(--size-step-1);
+  --text-size-heading-5: var(--size-step-1);
+  --text-size-heading-6: var(--size-step-1);
+  --text-size-lede: var(--size-step-1);
+  --text-size-meta: var(--size-step--1);
+  --text-size-prose: var(--text-size-base);
+  --text-size-small: 0.75em;
+
+  --scroll-bar-size: 0.5rem;
+  --scroll-bar-track-color: var(--color-light-shade);
+  --scroll-bar-thumb-color: var(--color-dark);
+  --scroll-bar-radius: var(--radius-m);
+  --scroll-bar-offset: var(--space-s);
+
+  --button-gap: var(--gutter);
+  --button-padding: var(--space-2xs) var(--space-s);
+  --button-bg: var(--color-dark);
+  --button-text: var(--color-light);
+  --button-leading: var(--leading-flat);
+  --button-border-color: var(--color-dark);
+  --button-border-width: var(--stroke-weight-medium);
+  --button-border-style: solid;
+  --button-radius: var(--space-m);
+  --button-box-shadow: none;
+  --button-text-transform: none;
+  --button-font-weight: var(--font-bold);
+  --button-font-size: var(--size-step--1);
+  --button-font-family: var(--font-base);
+  --button-kerning: var(--kerning);
+  --button-interact-bg: var(--color-dark);
+  --button-interact-text: var(--color-light);
+  --button-interact-border-color: var(--color-primary);
+}
+
+/*
+  SPACE AND TYPE SCALES
+*/
+
+/* Space scale */
+:root {
+  /* @link https://utopia.fyi/space/calculator?c=360,18,1.2,1240,20,1.25,5,2,&s=0.75|0.5|0.25,1.5|2|3|4|6,s-l&g=s,l,xl,12 */
+  /* Space 3xs: 5px → 5px */
+  --space-3xs: clamp(0.3125rem, 0.3125rem + 0vw, 0.3125rem);
+  /* Space 2xs: 9px → 10px */
+  --space-2xs: clamp(0.5625rem, 0.5369rem + 0.1136vw, 0.625rem);
+  /* Space xs: 14px → 15px */
+  --space-xs: clamp(0.875rem, 0.8494rem + 0.1136vw, 0.9375rem);
+  /* Space s: 18px → 20px */
+  --space-s: clamp(1.125rem, 1.0739rem + 0.2273vw, 1.25rem);
+  /* Space m: 27px → 30px */
+  --space-m: clamp(1.6875rem, 1.6108rem + 0.3409vw, 1.875rem);
+  /* Space l: 36px → 40px */
+  --space-l: clamp(2.25rem, 2.1477rem + 0.4545vw, 2.5rem);
+  /* Space xl: 54px → 60px */
+  --space-xl: clamp(3.375rem, 3.2216rem + 0.6818vw, 3.75rem);
+  /* Space 2xl: 72px → 80px */
+  --space-2xl: clamp(4.5rem, 4.2955rem + 0.9091vw, 5rem);
+  /* Space 3xl: 108px → 120px */
+  --space-3xl: clamp(6.75rem, 6.4432rem + 1.3636vw, 7.5rem);
+
+  /* One-up pairs */
+  /* Space 3xs-2xs: 5px → 10px */
+  --space-3xs-2xs: clamp(0.3125rem, 0.1847rem + 0.5682vw, 0.625rem);
+  /* Space 2xs-xs: 9px → 15px */
+  --space-2xs-xs: clamp(0.5625rem, 0.4091rem + 0.6818vw, 0.9375rem);
+  /* Space xs-s: 14px → 20px */
+  --space-xs-s: clamp(0.875rem, 0.7216rem + 0.6818vw, 1.25rem);
+  /* Space s-m: 18px → 30px */
+  --space-s-m: clamp(1.125rem, 0.8182rem + 1.3636vw, 1.875rem);
+  /* Space m-l: 27px → 40px */
+  --space-m-l: clamp(1.6875rem, 1.3551rem + 1.4773vw, 2.5rem);
+  /* Space l-xl: 36px → 60px */
+  --space-l-xl: clamp(2.25rem, 1.6364rem + 2.7273vw, 3.75rem);
+  /* Space xl-2xl: 54px → 80px */
+  --space-xl-2xl: clamp(3.375rem, 2.7102rem + 2.9545vw, 5rem);
+  /* Space 2xl-3xl: 72px → 120px */
+  --space-2xl-3xl: clamp(4.5rem, 3.2727rem + 5.4545vw, 7.5rem);
+
+  /* Custom pairs */
+  /* Space s-l: 18px → 40px */
+  --space-s-l: clamp(1.125rem, 0.5625rem + 2.5vw, 2.5rem);
+}
+
+/* Type scale */
+:root {
+  /* @link https://utopia.fyi/type/calculator?c=360,18,1.2,1240,20,1.25,5,2,&s=0.75|0.5|0.25,1.5|2|3|4|6,s-l&g=s,l,xl,12 */
+
+  /* Step -2: 12.5px → 12.8px */
+  --size-step--2: clamp(0.7813rem, 0.7736rem + 0.0341vw, 0.8rem);
+  /* Step -1: 15px → 16px */
+  --size-step--1: clamp(0.9375rem, 0.9119rem + 0.1136vw, 1rem);
+  /* Step 0: 18px → 20px */
+  --size-step-0: clamp(1.125rem, 1.0739rem + 0.2273vw, 1.25rem);
+  /* Step 1: 21.6px → 25px */
+  --size-step-1: clamp(1.35rem, 1.2631rem + 0.3864vw, 1.5625rem);
+  /* Step 2: 25.92px → 31.25px */
+  --size-step-2: clamp(1.62rem, 1.4837rem + 0.6057vw, 1.9531rem);
+  /* Step 3: 31.104px → 39.0625px */
+  --size-step-3: clamp(1.944rem, 1.7405rem + 0.9044vw, 2.4414rem);
+  /* Step 4: 37.3248px → 48.8281px */
+  --size-step-4: clamp(2.3328rem, 2.0387rem + 1.3072vw, 3.0518rem);
+  /* Step 5: 44.7898px → 61.0352px */
+  --size-step-5: clamp(2.7994rem, 2.384rem + 1.8461vw, 3.8147rem);
+}
+
+/*
+  CONFIGURABLE GLOBAL STYLES
+*/
+:root {
+  --global-style-text-box-trim: trim-both cap alphabetic;
+  --global-style-accent-color: var(--color-dark);
+  --global-style-blockquote-foot-space: 0;
+  --global-style-blockquote-footer-color: inherit;
+  --global-style-blockquote-size: var(--size-step--1);
+  --global-style-blockquote-footer-size: var(--size-step--2);
+  --global-style-blockquote-footer-font-family: var(--font-display);
+  --global-style-blockquote-footer-text-transform: none;
+  --global-style-blockquote-footer-kerning: var(--kerning-tight);
+  --global-style-blockquote-footer-order: 0;
+  --global-style-blockquote-quote-font-family: var(--font-display);
+  --global-style-blockquote-quote-style: normal;
+  --global-style-blockquote-quote-max-width: 39ch;
+  --global-style-blockquote-gap: var(--space-s);
+  --global-style-dd-dt-relation-spacing: var(--space-xs);
+  --global-style-dd-indent: 1.5ch;
+  --global-style-dt-dd-relation-spacing: var(--space-xs);
+  --global-style-dt-font-weight: var(--font-bold);
+  --global-style-details-open-space: var(--space-s);
+  --global-style-fieldset-padding: var(--space-s);
+  --global-style-fieldset-stroke: var(--stroke);
+  --global-style-figure-margin-inline: 0;
+  --global-style-figcaption-font: var(--font-base);
+  --global-style-figcaption-size: var(--size-step--2);
+  --global-style-figcaption-space: var(--space-2xs);
+  --global-style-font-size-adjust-fallback: 0.8em;
+  --global-style-link-text-decoration: revert;
+  --global-style-link-hover-text-decoration: revert;
+  --global-style-heading-link-hover-underline-offset: 0.3ex;
+  --global-style-heading-link-underline-offset: 0.2ex;
+  --global-style-heading-link-underline-thickness: 0.1ex;
+  --global-style-hr-space: var(--flow-space, var(--space-xl));
+  --global-style-hr-stroke: var(--stroke);
+  --global-style-input-bg: var(--color-light);
+  --global-style-input-color: var(--color-dark);
+  --global-style-input-disabled-color: var(--color-mid);
+  --global-style-input-padding: var(--space-2xs) var(--space-s);
+  --global-style-input-placeholder-color: var(--color-mid-shade);
+  --global-style-input-radius: var(--space-2xs);
+  --global-style-input-stroke: var(--stroke);
+  --global-style-label-font-size: var(--size-step-1);
+  --global-style-label-font-weight: var(--font-medium);
+  --global-style-label-font-family: var(--font-display);
+  --global-style-label-display: inherit;
+  --global-style-label-leading: var(--leading-fine);
+  --global-style-label-kerning: var(--heading-kerning);
+  --global-style-label-text-transform: none;
+  --global-style-label-with-input-flow-space: var(--space-s-m);
+  --global-style-label-with-input-gap: var(--space-s);
+  --global-style-legend-font-weight: var(--font-medium);
+  --global-style-legend-padding: var(--space-xs);
+  --global-style-link-hover-underline-offset: 0.2lh;
+  --global-style-mono-element-padding: 0;
+  --global-style-ol-indent-space: 1.6rem;
+  --global-style-ol-list-item-extra-space: var(--space-2xs);
+  --global-style-ol-marker-size: 1em;
+  --global-style-li-font-size: var(--size-step--1);
+  --global-style-q-font-style: italic;
+  --global-style-scroll-margin: 5lh;
+  --global-style-summary-font-weight: 400;
+  --global-style-svg-height: 1cap;
+  --global-style-ul-indent-space: 1.15rem;
+  --global-style-ul-list-item-extra-space: var(--space-2xs);
+  --global-style-ul-list-style: disc;
+  --global-style-ul-marker-size: 2.2ex;
+  --global-style-list-vertical-space: var(--space-3xs);
+  --global-style-table-border: none;
+  --global-style-table-th-padding: var(--space-xs) var(--space-xs) var(--space-xs) 0;
+  --global-style-table-th-font-size: var(--size-step-0);
+  --global-style-table-th-font-family: var(--font-display);
+  --global-style-table-th-font-weight: var(--font-medium);
+  --global-style-table-th-kerning: var(--heading-kerning);
+  --global-style-table-th-bg: none;
+  --global-style-table-th-border-end: var(--stroke);
+  --global-style-table-td-padding: var(--space-s) var(--space-s) var(--space-s) 0;
+  --global-style-table-td-font-size: var(--size-step--1);
+  --global-style-table-cell-border-inline: none;
+  --global-style-table-cell-border-start: var(--stroke);
+}

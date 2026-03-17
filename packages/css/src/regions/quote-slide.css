@@ -1,0 +1,11 @@
+.quote-slide {
+  --lede-size: var(--size-step-2);
+  --lede-measure: 48ch;
+  --flow-space: var(--size-step-xl-2xl);
+
+  font-size: var(--size-step-2);
+}
+
+.quote-slide__cite {
+  font-size: var(--size-step-1);
+}

@@ -1,0 +1,386 @@
+---
+export const prerender = false;
+
+import NaviPatternLibrary from '@layouts/NaviPatternLibrary.astro';
+import NaviCodeBlock from '@components/NaviCodeBlock.astro';
+import NaviButtonLink from '@components/NaviButtonLink.astro';
+import NaviDisclosure from '@components/NaviDisclosure.astro';
+import NaviPreviewFrame from '@components/NaviPreviewFrame.astro';
+import NaviMarkdown from '@components/NaviMarkdown.astro';
+import NaviToolbar from '@components/NaviToolbar.astro';
+import { renderComponentHtml } from '@utils/renderComponentHtml';
+import { getPatternWhitelist, getVariantProps } from '@utils/patternData';
+import { renderUsage } from '@utils/renderUsage';
+
+// Get component name from URL.
+const { component } = Astro.params;
+
+if (!component) {
+  return new Response('Missing `component` parameter in URL.', { status: 404 });
+}
+
+// Load component data dynamically (each file contains the component import).
+const dataFiles: Record<string, { default: Record<string, any> }> = import.meta.glob(
+  '../../data/patternData/*.js',
+  { eager: true }
+);
+
+// Generate map of all available components.
+const componentWhitelist = getPatternWhitelist(dataFiles);
+
+// Fetch component data using the URL param against the whitelist.
+const entry = componentWhitelist[component.toLowerCase()];
+
+if (!entry || !entry.data.component) {
+  return new Response(`Component "${component}" not found.`, { status: 404 });
+}
+
+// Extract the pattern data.
+const patternData = entry.data;
+
+// Check if this is an astro component.
+const isAstroComponent = patternData.type === 'astro';
+
+// Keep the original filename casing (e.g. 'Button') for titles and matching NaviMarkdown files.
+const formattedComponentKey = entry.originalName;
+
+// Reference the actual component function to be rendered.
+const ComponentInstance = patternData.component;
+
+// Extract variant names from the new nested `variants` structure.
+const componentVariants = Array.isArray(patternData.variants)
+  ? patternData.variants.map((variant) => Object.keys(variant)[0]) // Extract variant names.
+  : [];
+
+// Get default props.
+const defaultProps = getVariantProps(patternData, 'default');
+
+// Get default children.
+const defaultChildren = defaultProps.children ?? '';
+
+// Destructure the props so we can exclude 'children' and 'previewBG'.
+const { children, previewBG, ...rest } = defaultProps;
+
+// Render the default component usage
+const defaultUsage = renderUsage(formattedComponentKey, rest, children, isAstroComponent);
+
+// Format props for the NaviCodeBlock usage.
+const defaultPropsText = Object.keys(rest).length ? JSON.stringify(rest, null, 2) : null;
+
+// Grab any key links for the component.
+const keyLinks = patternData.keyLinks;
+
+// Create a new array containing only links that have both a label and a URL.
+const validKeyLinks = keyLinks?.filter((item) => item.label?.trim() && item.url?.trim()) || [];
+
+// Load supplementary NaviMarkdown files.
+const markdownFiles: Record<string, string> = import.meta.glob('../../data/patternMarkdown/*.md', {
+  query: '?raw',
+  import: 'default',
+  eager: true,
+});
+
+// Construct the markdown file path.
+const markdownFilePath = `../../data/patternMarkdown/${formattedComponentKey}.md`;
+
+// Grab the supplementary markdown for the component.
+const supplementaryMarkdown = markdownFiles[markdownFilePath] ?? null;
+
+// Pre-render the usage HTML for the default component.
+const defaultComponentHtml = await renderComponentHtml(
+  ComponentInstance,
+  defaultProps,
+  defaultChildren
+);
+
+const processVariant = async (variantObj) => {
+  const variantName = Object.keys(variantObj)[0];
+  const props = getVariantProps(patternData, variantName);
+
+  // Destructure the props so we can exclude 'children' and 'previewBG'.
+  const { children = '', previewBG, ...rest } = props;
+
+  // Render the variant component usage
+  const variantUsage = renderUsage(formattedComponentKey, rest, children, isAstroComponent);
+
+  // Render the usage HTML for the variant.
+  const variantComponentHtml = await renderComponentHtml(ComponentInstance, props, children);
+
+  // Format props for the NaviCodeBlock usage.
+  const variantPropsText = Object.keys(rest).length ? JSON.stringify(rest, null, 2) : null;
+
+  // Get preview background for the component variant.
+  const variantPreviewBG = props.previewBG;
+
+  // Pre-construct the preview frame URL.
+  const previewUrl = `/fullscreen?pattern=${component}&variant=${variantName}${variantPreviewBG ? `&previewBG=${encodeURIComponent(variantPreviewBG)}` : ''}&showToolbar=false`;
+
+  // Pre-construct fullscreen URL.
+  const fullscreenUrl = `/fullscreen?pattern=${component}&variant=${variantName}${variantPreviewBG ? `&previewBG=${encodeURIComponent(variantPreviewBG)}` : ''}`;
+
+  return {
+    name: variantName,
+    displayName: variantName.charAt(0).toUpperCase() + variantName.slice(1),
+    propsText: variantPropsText,
+    variantUsage,
+    variantComponentHtml,
+    previewUrl,
+    fullscreenUrl,
+  };
+};
+
+const variants = patternData.variants || [];
+const variantData = await Promise.all(variants.map(processVariant));
+
+// Table of contents
+
+// Generate component variants TOC (only if variants exist!).
+const componentVariantsToc = componentVariants.map((variant) => ({
+  text: variant.charAt(0).toUpperCase() + variant.slice(1),
+  slug: `variant-${variant}`,
+}));
+
+// Generate supplementary markdown TOC (if supplementaryMarkdown exists!).
+const supplementaryMarkdownToc = supplementaryMarkdown
+  ? [{ text: 'Documentation', slug: 'documentation' }]
+  : [];
+
+// Combine all TOC.
+const toc = [...componentVariantsToc, ...supplementaryMarkdownToc];
+
+// Component badge.
+const badge =
+  patternData.status === 'wip'
+    ? { label: 'WIP', variant: 'warn' }
+    : { label: 'Live', variant: 'default' };
+
+// Get preview background for the component default.
+const componentPreviewBG = patternData.default?.previewBG;
+---
+
+<NaviPatternLibrary
+  title={formattedComponentKey}
+  toc={toc}
+  badge={badge}
+  category={patternData.category}
+>
+  <NaviToolbar />
+  <div class="flow">
+    <h2 class="visually-hidden">Default Pattern</h2>
+    <div class="flow">
+      <NaviPreviewFrame
+        src={`${Astro.url.origin}/fullscreen?pattern=${component}${componentPreviewBG ? `&previewBG=${encodeURIComponent(componentPreviewBG)}` : ''}&showToolbar=false`}
+      />
+      <p>
+        <NaviButtonLink
+          href={`/fullscreen?pattern=${component}${componentPreviewBG ? `&previewBG=${encodeURIComponent(componentPreviewBG)}` : ''}`}
+          label="View fullscreen"
+          target="_blank"
+        />
+      </p>
+      <div>
+        {
+          validKeyLinks.length > 0 ? (
+            <NaviDisclosure heading="Key links">
+              <dl>
+                {validKeyLinks.map((item) => (
+                  <>
+                    <dt>{item.label}:</dt>
+                    <dd>
+                      <code>{item.url}</code>
+                    </dd>
+                  </>
+                ))}
+              </dl>
+            </NaviDisclosure>
+          ) : null
+        }
+        {
+          defaultPropsText && (
+            <NaviDisclosure heading="Props">
+              <NaviCodeBlock code={defaultPropsText} />
+            </NaviDisclosure>
+          )
+        }
+        {
+          defaultUsage && (
+            <NaviDisclosure heading="Usage">
+              <NaviCodeBlock code={defaultUsage} lang={patternData.type} />
+            </NaviDisclosure>
+          )
+        }
+        {
+          isAstroComponent && (
+            <NaviDisclosure heading="Ready to use HTML">
+              <NaviCodeBlock code={defaultComponentHtml} lang="html" />
+            </NaviDisclosure>
+          )
+        }
+      </div>
+    </div>
+
+    <!-- Only show variants if they exist -->
+    {
+      variantData.length > 0 && (
+        <>
+          <h2>Variants</h2>
+          {variantData.map((variant) => (
+            <div class="flow">
+              <h3 id={`variant-${variant.name}`}>{variant.displayName}</h3>
+
+              <NaviPreviewFrame src={`${Astro.url.origin}${variant.previewUrl}`} />
+
+              <p>
+                <NaviButtonLink
+                  href={variant.fullscreenUrl}
+                  label="View fullscreen"
+                  target="_blank"
+                />
+              </p>
+
+              <div>
+                {validKeyLinks.length > 0 ? (
+                  <NaviDisclosure heading="Key links">
+                    <dl>
+                      {validKeyLinks.map((item) => (
+                        <>
+                          <dt>{item.label}:</dt>
+                          <dd>
+                            <code>{item.url}</code>
+                          </dd>
+                        </>
+                      ))}
+                    </dl>
+                  </NaviDisclosure>
+                ) : null}
+                {variant.propsText && (
+                  <NaviDisclosure heading="Props">
+                    <NaviCodeBlock code={variant.propsText} />
+                  </NaviDisclosure>
+                )}
+                {variant.variantUsage && (
+                  <NaviDisclosure heading="Usage">
+                    <NaviCodeBlock code={variant.variantUsage} lang={patternData.type} />
+                  </NaviDisclosure>
+                )}
+                {isAstroComponent && (
+                  <NaviDisclosure heading="Ready to use HTML">
+                    <NaviCodeBlock code={variant.variantComponentHtml} lang="html" />
+                  </NaviDisclosure>
+                )}
+              </div>
+            </div>
+          ))}
+        </>
+      )
+    }
+
+    {
+      supplementaryMarkdown && (
+        <div class="pattern-library__markdown flow">
+          <h2 id="documentation">Documentation</h2>
+          <NaviMarkdown content={supplementaryMarkdown} />
+        </div>
+      )
+    }
+  </div>
+
+  <script is:inline>
+    // Block scope to avoid redeclaration errors.
+    {
+      // On page load restore radio button state from localStorage
+      const savedPageTheme = localStorage.getItem('navi-page-theme') || '';
+      const initialRadio = document.querySelector(
+        `input[name="page-theme"][value="${savedPageTheme}"]`
+      );
+      if (initialRadio) initialRadio.checked = true;
+
+      // Grab all the preview frames.
+      const previewFrames = document.querySelectorAll('.navi-preview-frame iframe');
+
+      // Grab all the radio buttons.
+      const radios = document.querySelectorAll('input[name="page-theme"]');
+
+      // Add event listener for each of the radio buttons.
+      radios.forEach((radio) => {
+        radio.addEventListener('change', (event) => {
+          // Get the css path that needs to be passed to the preview frames.
+          const pageThemeCssPath = event.target.value;
+
+          // Loop through all the preview frames and tell them to update page theme.
+          previewFrames.forEach((frame) => {
+            frame.contentWindow?.postMessage(
+              { type: 'SET_PAGE_THEME', url: pageThemeCssPath },
+              window.location.origin
+            );
+          });
+        });
+      });
+
+      // Handles communication between the component page and all NaviPreviewFrame's.
+      window.addEventListener('message', (event) => {
+        // Only allow messages from our own domain.
+        if (event.origin !== window.location.origin) return;
+
+        // Triggered when a new iframe loads and asks for the current state.
+        if (event.data.type === 'SYNC') {
+          // Get the page theme css from localStorage.
+          const currentPageThemeCSS = localStorage.getItem('navi-page-theme') || '';
+
+          // Get the theme toggle state from localStorage.
+          const currentThemeToggleState = localStorage.getItem('user-color-scheme') || 'light';
+
+          // Reload the iframe with the current states.
+          if (event.source) {
+            event.source.postMessage(
+              { type: 'SET_PAGE_THEME', url: currentPageThemeCSS },
+              event.origin
+            );
+            event.source.postMessage(
+              { type: 'SET_THEME_TOGGLE', mode: currentThemeToggleState },
+              event.origin
+            );
+          }
+          return;
+        }
+
+        // Triggered via page theme radio buttons.
+        if (event.data.type === 'SET_PAGE_THEME') {
+          // Get the css path that needs to be passed to the preview frames.
+          const pageThemeCssPath = event.data.url;
+
+          // Reflect any changes in the parent radio input state.
+          const parentRadio = document.querySelector(
+            `input[name="page-theme"][value="${pageThemeCssPath}"]`
+          );
+          if (parentRadio) parentRadio.checked = true;
+
+          // Update the localStorage value.
+          localStorage.setItem('navi-page-theme', event.data.url);
+
+          // Loop through all the preview frames and tell them to update page theme.
+          previewFrames.forEach((frame) => {
+            frame.contentWindow?.postMessage(
+              { type: 'SET_PAGE_THEME', url: pageThemeCssPath },
+              window.location.origin
+            );
+          });
+        }
+
+        // Triggered via the light/dark theme toggle.
+        if (event.data.type === 'SET_THEME_TOGGLE') {
+          // Get the theme toggle mode from the event.
+          const mode = event.data.mode;
+
+          // Loop through all the preview frames and tell them to update the theme toggle.
+          previewFrames.forEach((frame) => {
+            frame.contentWindow?.postMessage(
+              { type: 'SET_THEME_TOGGLE', mode: mode },
+              window.location.origin
+            );
+          });
+        }
+      });
+    }
+  </script>
+</NaviPatternLibrary>

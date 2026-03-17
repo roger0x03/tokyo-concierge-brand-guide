@@ -1,0 +1,65 @@
+---
+import '@repo/css/regions/slide';
+
+import Footer from '@repo/ui/Footer';
+
+const {
+  footerHeading,
+  footerByline,
+  next,
+  prev,
+  pageNumber,
+  concealedFooter = false,
+} = Astro.props;
+---
+
+<main class="slide">
+  <div class="slide__inner">
+    <div class="slide__content">
+      <slot />
+    </div>
+    <Footer
+      next={next}
+      prev={prev}
+      heading={footerHeading}
+      byline={footerByline}
+      concealed={concealedFooter}
+      pageNumber={pageNumber}
+    />
+  </div>
+  <navi-gator next={next} prev={prev}></navi-gator>
+</main>
+
+<script is:inline>
+  class Navigator extends HTMLElement {
+    constructor() {
+      super();
+    }
+
+    get next() {
+      return this.getAttribute('next') || '';
+    }
+
+    get prev() {
+      return this.getAttribute('prev') || '';
+    }
+
+    connectedCallback() {
+      document.addEventListener('keyup', (evt) => {
+        evt.preventDefault();
+
+        switch (evt.keyCode) {
+          case 39:
+          case 32: // space bar
+            if (this.next.length) window.location.href = this.next;
+            return;
+          case 37:
+            if (this.prev.length) window.location.href = this.prev;
+            return;
+        }
+      });
+    }
+  }
+
+  customElements.define('navi-gator', Navigator);
+</script>

@@ -1,0 +1,93 @@
+{
+  "size": {
+    "$type": "fluidDimension",
+    "$description": "All steps, 8 and onwards, are the same for 'min'. A minimum and maximum text size allows you to pick the right size from a ratio, depending on the context size. The min and max sizes are in pixels and should be converted to appropriate sizes, per context. For example, for web, they should be converted to REM units (pixelSize / baseSize).",
+    "$extensions": {
+      "scaleGenerator": "https://utopia.fyi/type/calculator?c=360,18,1.2,1240,20,1.25,7,2,&s=0.75|0.5|0.25,1.5|2|3|4|6|6,s-l|s-xl&g=s,l,xl,12"
+    },
+    "step--2": {
+      "$value": {
+        "min": { "value": 12.5, "unit": "px" },
+        "max": { "value": 12.8, "unit": "px" }
+      }
+    },
+    "step--1": {
+      "$value": {
+        "min": { "value": 15, "unit": "px" },
+        "max": { "value": 16, "unit": "px" }
+      }
+    },
+    "step-0": {
+      "$value": {
+        "min": { "value": 18, "unit": "px" },
+        "max": { "value": 20, "unit": "px" }
+      }
+    },
+    "step-1": {
+      "$value": {
+        "min": { "value": 21.6, "unit": "px" },
+        "max": { "value": 25, "unit": "px" }
+      }
+    },
+    "step-2": {
+      "$value": {
+        "min": { "value": 25.92, "unit": "px" },
+        "max": { "value": 31.25, "unit": "px" }
+      }
+    },
+    "step-3": {
+      "$value": {
+        "min": { "value": 31.104, "unit": "px" },
+        "max": { "value": 39.0625, "unit": "px" }
+      }
+    },
+    "step-4": {
+      "$value": {
+        "min": { "value": 37.3248, "unit": "px" },
+        "max": { "value": 48.8281, "unit": "px" }
+      }
+    },
+    "step-5": {
+      "$value": {
+        "min": { "value": 44.7898, "unit": "px" },
+        "max": { "value": 61.0352, "unit": "px" }
+      }
+    },
+    "step-6": {
+      "$value": {
+        "min": { "value": 53.7477, "unit": "px" },
+        "max": { "value": 76.2939, "unit": "px" }
+      }
+    },
+    "step-7": {
+      "$value": {
+        "min": { "value": 64.4973, "unit": "px" },
+        "max": { "value": 95.3674, "unit": "px" }
+      }
+    },
+    "step-8": {
+      "$value": {
+        "min": { "value": 69, "unit": "px" },
+        "max": { "value": 119.21, "unit": "px" }
+      }
+    },
+    "step-9": {
+      "$value": {
+        "min": { "value": 69, "unit": "px" },
+        "max": { "value": 149.01, "unit": "px" }
+      }
+    },
+    "step-10": {
+      "$value": {
+        "min": { "value": 69, "unit": "px" },
+        "max": { "value": 186.26, "unit": "px" }
+      }
+    },
+    "step-11": {
+      "$value": {
+        "min": { "value": 69, "unit": "px" },
+        "max": { "value": 232.825, "unit": "px" }
+      }
+    }
+  }
+}

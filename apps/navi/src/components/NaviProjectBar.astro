@@ -1,0 +1,11 @@
+---
+import NaviIconLink from './NaviIconLink.astro';
+import { navi } from '@data/naviConfig';
+---
+
+<div class="navi-project-bar repel">
+  <p><strong>{navi.config.client}:</strong> <a href="/">Pattern Library</a></p>
+  <p>
+    <NaviIconLink href={navi.config.website} label="View the website" />
+  </p>
+</div>

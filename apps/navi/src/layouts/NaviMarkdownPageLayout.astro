@@ -1,0 +1,11 @@
+---
+import NaviPatternLibrary from '@layouts/NaviPatternLibrary.astro';
+
+const { frontmatter } = Astro.props;
+---
+
+<NaviPatternLibrary title={frontmatter.title} toc={frontmatter.toc}>
+  <div class="flow">
+    <slot />
+  </div>
+</NaviPatternLibrary>

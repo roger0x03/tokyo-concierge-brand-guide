@@ -1,0 +1,6 @@
+.brand-slide {
+  --slide-bg: var(--color-primary);
+  --slide-color: var(--color-light);
+  --flow-space: var(--space-xl);
+  --lede-size: var(--size-step-3);
+}

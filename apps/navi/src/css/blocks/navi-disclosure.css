@@ -1,0 +1,72 @@
+.navi-disclosure {
+  --global-style-details-open-space: 0;
+  --global-style-svg-height: 1.2cap;
+  /* Summary */
+  --navi-disclosure-summary-vertical-alignment: center;
+  --navi-disclosure-summary-horizontal-alignment: space-between;
+  --navi-disclosure-summary-gutter: var(--space-s);
+  --navi-disclosure-summary-padding-block: var(--space-2xs);
+  --navi-disclosure-summary-border-block-end: var(--stroke);
+  --navi-disclosure-open-summary-border-block-end: none;
+  --navi-disclosure-summary-font-size: var(--size-step--1);
+  --navi-disclosure-summary-font-weight: var(--font-bold);
+  --navi-disclosure-summary-text-transform: uppercase;
+  /* Body */
+  --navi-disclosure-body-padding-block: var(--space-s) var(--space-m);
+  --navi-disclosure-body-border-block-end: var(--stroke);
+  /* Body - definition list */
+  --navi-disclosure-body-dl-gutter: var(--space-3xs) var(--space-xs);
+  /* Icon */
+  --navi-disclosure-open-icon-rotation: 180deg;
+}
+
+/* Summary */
+.navi-disclosure summary {
+  display: flex;
+  align-items: var(--navi-disclosure-summary-vertical-alignment);
+  justify-content: var(--navi-disclosure-summary-horizontal-alignment);
+  gap: var(--navi-disclosure-summary-gutter);
+  padding-block: var(--navi-disclosure-summary-padding-block);
+  border-block-end: var(--navi-disclosure-summary-border-block-end);
+  font-size: var(--navi-disclosure-summary-font-size);
+  font-weight: var(--navi-disclosure-summary-font-weight);
+  text-transform: var(--navi-disclosure-summary-text-transform);
+}
+
+.navi-disclosure[open] summary {
+  border-block-end: var(--navi-disclosure-open-summary-border-block-end);
+}
+
+/* Body */
+.navi-disclosure__body {
+  padding-block: var(--navi-disclosure-body-padding-block);
+  border-block-end: var(--navi-disclosure-body-border-block-end);
+}
+
+/* Body - definition list */
+.navi-disclosure__body dl {
+  /* Reset the inherited styles. */
+  --global-style-dt-dd-relation-spacing: 0;
+  --global-style-dd-indent: 0;
+  --global-style-dd-dt-relation-spacing: 0;
+
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: var(--navi-disclosure-body-dl-gutter);
+}
+
+@media (min-width: 50em) {
+  .navi-disclosure__body dl {
+    grid-template-columns: max-content 1fr;
+  }
+}
+
+/* Prevent the blowout on small viewports.*/
+.navi-disclosure__body dl code {
+  word-wrap: break-word;
+}
+
+/* Icon */
+.navi-disclosure[open] .navi-disclosure__icon {
+  rotate: var(--navi-disclosure-open-icon-rotation);
+}

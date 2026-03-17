@@ -1,0 +1,59 @@
+---
+import '@repo/css/blocks/footer';
+
+const { heading, byline, next, prev, pageNumber = '0', concealed = false } = Astro.props;
+---
+
+<footer class="footer" data-footer-is-concealed={concealed ? true : undefined}>
+  <div class="repel">
+    <div class="footer__header cluster">
+      <h2>{heading}</h2>
+      <p>{byline}</p>
+    </div>
+    <nav class="cluster" aria-label="controls">
+      {
+        prev && (
+          <a href={prev}>
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              aria-hidden="true"
+              focusable="false"
+              fill="none"
+              viewBox="0 0 13 13"
+            >
+              <g fill="currentColor">
+                <path d="M7.783 2.594V0H5.188v2.594zM10.377 5.189V2.594H7.783V5.19zM2.594 7.783V5.189H0v2.594zM5.188 7.783V5.189H2.594v2.594zM7.783 7.783V5.189H5.188v2.594zM12.971 7.783V5.189h-2.594v2.594zM10.377 10.377V7.783H7.783v2.594zM7.783 12.971v-2.594H5.188v2.594z" />
+              </g>
+            </svg>
+            <span>Previous slide</span>
+          </a>
+        )
+      }
+      {
+        pageNumber !== '0' && (
+          <div class="footer__page" aria-hidden="true">
+            <span>{pageNumber}</span>
+          </div>
+        )
+      }
+      {
+        next && (
+          <a href={next}>
+            <span>{next === '/' ? 'Back to start' : 'Next slide'}</span>
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              aria-hidden="true"
+              focusable="false"
+              fill="none"
+              viewBox="0 0 13 13"
+            >
+              <g fill="currentColor">
+                <path d="M7.783 2.594V0H5.188v2.594zM10.377 5.189V2.594H7.783V5.19zM2.594 7.783V5.189H0v2.594zM5.188 7.783V5.189H2.594v2.594zM7.783 7.783V5.189H5.188v2.594zM12.971 7.783V5.189h-2.594v2.594zM10.377 10.377V7.783H7.783v2.594zM7.783 12.971v-2.594H5.188v2.594z" />
+              </g>
+            </svg>
+          </a>
+        )
+      }
+    </nav>
+  </div>
+</footer>

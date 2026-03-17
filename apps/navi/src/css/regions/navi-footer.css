@@ -1,0 +1,13 @@
+.navi-footer {
+  --flow-space: var(--space-l);
+  --navi-footer-svg-size: 100%;
+
+  padding-block: var(--space-s) calc(var(--navi-toolbar-height) * 1.25);
+  border-block-start: var(--stroke);
+}
+
+.navi-footer svg {
+  display: block;
+  width: var(--navi-footer-svg-size);
+  height: auto;
+}

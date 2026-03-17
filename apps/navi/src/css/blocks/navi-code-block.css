@@ -1,0 +1,146 @@
+navi-code-block {
+  /* Ensure the web component is set to display block. */
+  display: block;
+}
+
+.navi-code-block {
+  /* Header */
+  --navi-code-block-header-padding-inline: var(--space-xs) 0;
+  /* Action */
+  --navi-code-block-action-border-inline-start: var(--stroke);
+  /* Alert */
+  --navi-code-block-alert-bg: var(--color-status-success);
+  --navi-code-block-alert-font-family: var(--font-mono);
+  --navi-code-block-alert-font-size: var(--size-step--2);
+  --navi-code-block-alert-font-weight: var(--font-normal);
+  --navi-code-block-alert-text-transform: uppercase;
+  /* Button */
+  --navi-code-block-button-gutter: var(--space-xs);
+  --navi-code-block-button-padding: var(--space-xs);
+  --navi-code-block-button-bg: transparent;
+  --navi-code-block-button-color: var(--color-dark);
+  --navi-code-block-button-bg-hover: var(--color-primary);
+  --navi-code-block-button-color-hover: var(--color-light);
+  --navi-code-block-button-font-family: var(--font-mono);
+  --navi-code-block-button-font-size: var(--size-step--2);
+  --navi-code-block-button-font-weight: var(--font-normal);
+  --navi-code-block-button-text-transform: uppercase;
+  --navi-code-block-button-svg-size: 1.5cap;
+  /* Definition list */
+  --global-style-dt-dd-relation-spacing: 0;
+  --global-style-dd-indent: 0;
+  /* Definition details element */
+  --navi-code-block-dd-font-family: var(--font-mono);
+  --navi-code-block-dd-font-size: var(--size-step--2);
+  --navi-code-block-dd-font-weight: var(--font-normal);
+  --navi-code-block-dd-text-transform: uppercase;
+  /* Preformatted text */
+  --navi-code-block-padding: var(--space-m) var(--space-xs);
+  --navi-code-block-bg: #0a0c10;
+  /* Scrollbar defaults */
+  --scroll-bar-thumb-color: var(--color-mid-glare);
+  --scroll-bar-track-color: var(--color-light);
+  --scroll-bar-offset: 0.25rem;
+  /* Selection */
+  --navi-code-block-selection-bg: var(--color-light);
+  --navi-code-block-selection-color: var(--color-dark);
+
+  border: var(--stroke);
+}
+
+/* Header */
+.navi-code-block__header {
+  display: flex;
+  justify-content: space-between;
+  padding-inline: var(--navi-code-block-header-padding-inline);
+}
+
+/* Action */
+.navi-code-block__action {
+  border-inline-start: var(--navi-code-block-action-border-inline-start);
+  position: relative;
+}
+
+/* Alert */
+.navi-code-block__alert span {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--navi-code-block-alert-bg);
+  font-family: var(--navi-code-block-alert-font-family);
+  font-size: var(--navi-code-block-alert-font-size);
+  font-weight: var(--navi-code-block-alert-font-weight);
+  text-transform: var(--navi-code-block-alert-text-transform);
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+}
+
+/* Button */
+.navi-code-block button {
+  --global-style-svg-height: var(--navi-code-block-button-svg-size);
+
+  display: flex;
+  align-items: center;
+  gap: var(--navi-code-block-button-gutter);
+  padding: var(--navi-code-block-button-padding);
+  background-color: var(--navi-code-block-button-bg);
+  border: none;
+  color: var(--navi-code-block-button-color);
+  font-family: var(--navi-code-block-button-font-family);
+  font-size: var(--navi-code-block-button-font-size);
+  font-weight: var(--navi-code-block-button-font-weight);
+  text-transform: var(--navi-code-block-button-text-transform);
+  cursor: pointer;
+}
+
+.navi-code-block button:hover {
+  background-color: var(--navi-code-block-button-bg-hover);
+  color: var(--navi-code-block-button-color-hover);
+}
+
+/* Definition list */
+.navi-code-block dl {
+  display: flex;
+  align-items: center;
+}
+
+/* Definition details element */
+.navi-code-block dd {
+  font-family: var(--navi-code-block-dd-font-family);
+  font-size: var(--navi-code-block-dd-font-size);
+  font-weight: var(--navi-code-block-dd-font-weight);
+  text-transform: var(--navi-code-block-dd-text-transform);
+}
+
+/* Preformatted text */
+.navi-code-block pre {
+  display: block;
+  margin: 0;
+  padding: var(--navi-code-block-padding);
+  min-width: 100%;
+  background-color: var(--navi-code-block-bg);
+}
+
+/* Scrollbar */
+.navi-code-block pre::-webkit-scrollbar {
+  block-size: var(--scroll-bar-size);
+}
+
+.navi-code-block pre::-webkit-scrollbar-track {
+  background-color: var(--scroll-bar-track-color);
+  border-radius: 0;
+}
+
+.navi-code-block pre::-webkit-scrollbar-thumb {
+  background-color: var(--scroll-bar-thumb-color);
+  border-radius: var(--scroll-bar-radius);
+}
+
+/* Selection */
+.navi-code-block ::selection {
+  background: var(--navi-code-block-selection-bg);
+  color: var(--navi-code-block-selection-color);
+}

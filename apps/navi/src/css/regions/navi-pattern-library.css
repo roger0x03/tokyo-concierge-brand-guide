@@ -1,0 +1,100 @@
+.navi-pattern-library {
+  --flow-space: var(--space-m);
+  /* Sidebar */
+  --navi-pattern-library-sidebar-gutter: 0 var(--space-l);
+  --navi-pattern-library-sidebar-target-width: 22rem;
+  --navi-pattern-library-sidebar-content-min-width: 60%;
+  /* Repel */
+  --repel-vertical-alignment: baseline;
+  /* Nav */
+  --navi-pattern-library-nav-flow-space: var(--space-m);
+  --navi-pattern-library-nav-border: var(--stroke);
+  --navi-pattern-library-nav-padding-inline: var(--space-s-m);
+  --navi-pattern-library-nav-padding-block: var(--space-xl);
+  /* Body */
+  --navi-pattern-library-body-padding-inline: var(--space-s-m);
+  --navi-pattern-library-body-padding-block: var(--space-xl) var(--space-3xl);
+  /* Markdown */
+  --navi-pattern-library-markdown-margin-block: var(--space-2xl) 0;
+  --navi-pattern-library-table-min-width: 50rem;
+  /* Horizontal rule */
+  --navi-pattern-library-hr-margin-block: var(--space-xl);
+  /* Meta info */
+  --navi-pattern-library-meta-info-size: var(--size-step--1);
+  --navi-pattern-library-meta-info-space: var(--space-xs);
+
+  container: navi-pattern-library / inline-size;
+}
+
+/* Sidebar */
+.navi-pattern-library .sidebar {
+  --sidebar-target-width: var(--navi-pattern-library-sidebar-target-width);
+  --sidebar-content-min-width: var(--navi-pattern-library-sidebar-content-min-width);
+  --gutter: var(--navi-pattern-library-sidebar-gutter);
+}
+
+/* Nav */
+.navi-pattern-library__nav {
+  --flow-space: var(--navi-pattern-library-nav-flow-space);
+
+  padding-block: var(--navi-pattern-library-nav-padding-block);
+  border-block-end: var(--navi-pattern-library-nav-border);
+}
+
+@container navi-pattern-library (width >= 977px) {
+  .navi-pattern-library__nav {
+    border-inline-end: var(--navi-pattern-library-nav-border);
+    border-block-end: none;
+  }
+}
+
+.navi-pattern-library__nav .navi-quick-links,
+.navi-pattern-library__nav .navi-category-quick-links {
+  padding-inline: var(--navi-pattern-library-nav-padding-inline);
+}
+
+/* Body */
+.navi-pattern-library__body {
+  padding-inline: var(--navi-pattern-library-body-padding-inline);
+  padding-block: var(--navi-pattern-library-body-padding-block);
+}
+
+/* Markdown */
+.navi-pattern-library__markdown {
+  margin-block: var(--navi-pattern-library-markdown-margin-block);
+}
+
+/* Horizontal rule */
+.navi-pattern-library hr {
+  border: 0;
+  border-block-start: 1px solid;
+  color: currentColor;
+  height: 1px;
+  margin-block: var(--navi-pattern-library-hr-margin-block);
+  margin-inline: 0;
+  padding: 0;
+}
+
+/* Set appropriate max-width(s). */
+.navi-pattern-library .navi-code-block,
+.navi-pattern-library p,
+.navi-pattern-library table {
+  max-width: 75rem;
+}
+
+/* Tables */
+.navi-pattern-library table {
+  min-width: var(--navi-pattern-library-table-min-width);
+}
+
+/* Meta info */
+.navi-pattern-library__pattern-meta-info {
+  --global-style-dt-dd-relation-spacing: 0;
+  --global-style-dd-dt-relation-spacing: 0;
+  --global-style-dd-indent: 0;
+  --cluster-vertical-alignment: center;
+  --cluster-gutter: var(--navi-pattern-library-meta-info-space);
+
+  font-size: var(--navi-pattern-library-meta-info-size);
+  text-transform: uppercase;
+}

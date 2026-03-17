@@ -1,0 +1,6 @@
+---
+import { renderMarkdown } from '@utils/markdown';
+const { content } = Astro.props;
+---
+
+<div class="flow" set:html={renderMarkdown(content)} />

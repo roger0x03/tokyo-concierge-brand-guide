@@ -1,0 +1,65 @@
+.swatches-slide {
+  --grid-min-item-size: clamp(8rem, var(--swatch-grid-column-width, 25%), 16rem);
+  --grid-placement: auto-fit;
+  --text-size-heading-2: var(--size-step-0);
+  --flow-space: var(--space-xl);
+  --global-style-hr-space: var(--space-l);
+  --heading-size: var(--text-size-heading-1);
+}
+
+.swatches-slide__grid {
+  --swatches-grid-column-gap: var(--space-2xl);
+
+  display: grid;
+  gap: var(--space-l) var(--space-2xl);
+  grid-template-columns: repeat(
+    auto-fit,
+    minmax(
+      calc(var(--swatches-slide-grid-column-width, 25%) - var(--swatches-grid-column-gap)),
+      1fr
+    )
+  );
+}
+
+.swatches__group {
+  --flow-space: var(--space-s);
+}
+
+.swatches-slide__swatch {
+  --flow-space: var(--space-xs);
+  font-size: var(--size-step--1);
+  text-transform: uppercase;
+
+  /* For if for some reason, there's only 2 or 3. This will make them at least, look less shit */
+  max-width: 20rem;
+}
+
+.swatches-slide h2 {
+  --flow-space: var(--space-xl);
+
+  font-weight: var(--font-weight-regular);
+  font-family: var(--font-family-base);
+  text-align: center;
+}
+
+.swatches-slide th {
+  text-align: left;
+}
+
+.swatches-slide td {
+  text-align: right;
+}
+
+.swatches-slide__example {
+  content: '';
+  display: block;
+  aspect-ratio: 1/1;
+  background-color: var(--swatch-color);
+  border: 1px solid;
+  align-content: end;
+  padding: var(--space-xs);
+  font-weight: var(--font-weight-bold);
+  text-transform: uppercase;
+  border-radius: 50%;
+  margin-block-end: var(--flow-space);
+}

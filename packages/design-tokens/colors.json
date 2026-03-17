@@ -1,0 +1,33 @@
+{
+  "color": {
+    "$type": "color",
+    "$description": "Hex color codes that can be shared, cross-platform. They can be converted at point of usage, such as HSL for web or CMYK for print.",
+    "dark": {
+      "$value": "#2b2b2b"
+    },
+    "dark-glare": {
+      "$value": "#4b4a49"
+    },
+    "mid": {
+      "$value": "#6a6968"
+    },
+    "mid-glare": {
+      "$value": "#b9b9b9"
+    },
+    "mid-shade": {
+      "$value": "#a6a5a4"
+    },
+    "light": {
+      "$value": "#FEFBF6"
+    },
+    "primary": {
+      "$value": "#e01616"
+    },
+    "primary-glare": {
+      "$value": "#e64443"
+    },
+    "primary-shade": {
+      "$value": "#bc1a1a"
+    }
+  }
+}

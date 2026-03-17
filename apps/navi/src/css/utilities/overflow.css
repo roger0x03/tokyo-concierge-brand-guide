@@ -1,0 +1,40 @@
+.overflow {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  /* Add padding below the list / above the scrollbar. */
+  padding-block-end: var(--can-scroll);
+
+  /* https://www.bram.us/2023/09/16/solved-by-css-scroll-driven-animations-detect-if-an-element-can-scroll-or-not/ */
+  animation: detect-overflow-scroll linear;
+  animation-timeline: scroll(self inline);
+}
+
+@keyframes detect-overflow-scroll {
+  from,
+  to {
+    --can-scroll: var(--scroll-bar-offset);
+  }
+}
+
+.overflow::-webkit-scrollbar {
+  block-size: var(--scroll-bar-size);
+}
+
+.overflow::-webkit-scrollbar-track {
+  background-color: var(--scroll-bar-track-color);
+  border-radius: var(--scroll-bar-radius, 0);
+}
+
+.overflow::-webkit-scrollbar-thumb {
+  background-color: var(--scroll-bar-thumb-color);
+  border-radius: var(--scroll-bar-radius, 0);
+}
+
+/* Sets the reel to snap on each item on scroll */
+.overflow[data-scroll='snap'] {
+  scroll-snap-type: x mandatory;
+}
+
+.overflow[data-scroll='snap'] > * {
+  scroll-snap-align: start;
+}

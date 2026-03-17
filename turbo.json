@@ -1,0 +1,37 @@
+{
+  "$schema": "https://turbo.build/schema.json",
+  "globalPassThroughEnv": [],
+  "tasks": {
+    "//#tokens": {
+      "inputs": [
+        "packages/design-tokens/**/*.json",
+        "sugarcube.config.js",
+        "packages/ui/src/**/*.{astro,jsx,tsx}",
+        "apps/web/src/**/*.{astro,jsx,tsx}",
+        "apps/navi/src/**/*.{astro,jsx,tsx}"         
+      ],
+      "outputs": [
+        "./packages/css/src/sugarcube/global/tokens.variables.gen.css",
+        "./packages/css/src/sugarcube/utilities/utilities.gen.css"
+      ],
+      "cache": true
+    },
+    "build": {
+      "dependsOn": ["^build", "//#tokens"],
+      "inputs": ["$TURBO_DEFAULT$", ".env*", "src/**", "netlify.toml"],
+      "outputs": ["dist/**", ".netlify/**"]
+    },
+    "lint": {
+      "dependsOn": ["^lint"]
+    },
+    "dev": {
+      "dependsOn": ["^dev", "//#tokens"],
+      "cache": false,
+      "persistent": true
+    },
+    "scaffold": {
+      "cache": false,
+      "interactive": true
+    }
+  }
+}

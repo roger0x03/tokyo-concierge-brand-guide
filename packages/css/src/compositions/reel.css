@@ -1,0 +1,53 @@
+/* 
+ REEL
+ A layout that creates a carousel-like element
+
+ CONFIGURATION
+ Add an attribute of data-scroll="snap" to the element
+ to enable scroll snapping
+*/
+.reel {
+  --reel-calculated-space: var(--reel-space, var(--gutter, 2rem));
+  display: flex;
+  height: auto;
+  max-width: 100%;
+  margin-inline: auto;
+
+  /* Padding allows child element hover states to show */
+  padding: 0 0 var(--scroll-bar-offset) 0;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+.reel > * {
+  flex-basis: var(--reel-item-width, calc(33.333% - var(--reel-calculated-space)));
+  flex-shrink: 0;
+}
+
+.reel > * + * {
+  margin-inline-start: var(--reel-calculated-space);
+}
+
+.reel::-webkit-scrollbar {
+  block-size: var(--scroll-bar-size);
+}
+
+.reel::-webkit-scrollbar-track {
+  background-color: var(--scroll-bar-track-color);
+  border-radius: var(--scroll-bar-radius, 0);
+}
+
+.reel::-webkit-scrollbar-thumb {
+  background-color: var(--scroll-bar-thumb-color);
+  border-radius: var(--scroll-bar-radius, 0);
+}
+
+/* SCROLL TYPE EXCEPTION
+   Sets the reel to snap on each item on scroll */
+.reel[data-scroll='snap'] {
+  scroll-snap-type: x mandatory;
+}
+
+.reel[data-scroll='snap'] > * {
+  scroll-snap-align: start;
+}

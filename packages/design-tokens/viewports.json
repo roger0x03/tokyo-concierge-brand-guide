@@ -1,0 +1,17 @@
+{
+  "viewport": {
+    "$type": "dimension",
+    "min": {
+      "$value": { "value": 330, "unit": "px" }
+    },
+    "mid": {
+      "$value": { "value": 760, "unit": "px" }
+    },
+    "large": {
+      "$value": { "value": 940, "unit": "px" }
+    },
+    "max": {
+      "$value": { "value": 1350, "unit": "px" }
+    }
+  }
+}

@@ -1,0 +1,36 @@
+.navi-button-link {
+  --global-style-svg-height: 1.2cap;
+  --navi-button-link-gutter: var(--space-2xs);
+  --navi-button-link-vertical-alignment: center;
+  --navi-button-link-horizontal-alignment: flex-start;
+  --navi-button-link-padding: var(--space-2xs) var(--space-xs);
+  --navi-button-link-bg: var(--color-dark);
+  --navi-button-link-border: 1px solid var(--color-dark);
+  --navi-button-link-color: var(--color-light);
+  --navi-button-link-bg-hover: transparent;
+  --navi-button-link-border-hover: 1px solid var(--color-dark);
+  --navi-button-link-color-hover: var(--color-dark);
+  --navi-button-link-font-size: var(--size-step--1);
+  --navi-button-link-font-weight: var(--font-bold);
+  --navi-button-link-text-transform: uppercase;
+
+  display: inline-flex;
+  gap: var(--navi-button-link-gutter);
+  align-items: var(--navi-button-link-vertical-alignment);
+  justify-content: var(--navi-button-link-horizontal-alignment);
+  padding: var(--navi-button-link-padding);
+  background-color: var(--navi-button-link-bg);
+  border: var(--navi-button-link-border);
+  color: var(--navi-button-link-color);
+  font-size: var(--navi-button-link-font-size);
+  font-weight: var(--navi-button-link-font-weight);
+  text-transform: var(--navi-button-link-text-transform);
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.navi-button-link:hover {
+  background-color: var(--navi-button-link-bg-hover);
+  border: var(--navi-button-link-border-hover);
+  color: var(--navi-button-link-color-hover);
+}

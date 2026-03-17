@@ -1,0 +1,20 @@
+---
+const { href, label, ...rest } = Astro.props;
+---
+
+<a href={href} class="navi-button-link" {...rest}>
+  <span>{label}</span>
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="16"
+    height="16"
+    aria-hidden="true"
+    focusable="false"
+    viewBox="0 0 16 16"
+  >
+    <path
+      fill="currentColor"
+      d="m3.298 2.331-.01 2.675h5.824l-7.71 7.71 1.882 1.882 7.71-7.71v5.823l2.675-.009-.012-10.36z"
+    ></path>
+  </svg>
+</a>

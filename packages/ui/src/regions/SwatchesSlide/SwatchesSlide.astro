@@ -1,0 +1,44 @@
+---
+import '@repo/css/regions/swatches-slide';
+
+import Slide from '@repo/ui/Slide';
+import Heading from '@repo/ui/Heading';
+
+const { swatches, heading, ...rest } = Astro.props;
+---
+
+<div class="swatches-slide">
+  <Slide {...rest}>
+    <div class="flow">
+      <Heading variant="minor">{heading}</Heading>
+      <hr />
+      <div
+        class="swatches-slide__grid"
+        style={`--swatches-slide-grid-column-width: ${Math.floor(100 / swatches.length)}%`}
+      >
+        {
+          swatches.map((swatch) => (
+            <div class="swatches-slide__swatch flow">
+              <div
+                class="swatches-slide__example"
+                aria-hidden="true"
+                style={`--swatch-color: ${swatch.color}`}
+              />
+              <h2>{swatch.name}</h2>
+              {swatch.values && (
+                <table>
+                  {swatch.values.map((value) => (
+                    <tr>
+                      <th>{value.key}</th>
+                      <td>{value.value}</td>
+                    </tr>
+                  ))}
+                </table>
+              )}
+            </div>
+          ))
+        }
+      </div>
+    </div>
+  </Slide>
+</div>

@@ -1,0 +1,21 @@
+.browser-clips-slide {
+  --slide-color: var(--color-mid);
+  --global-style-figcaption-space: var(--space-2xs);
+}
+
+.browser-clips-slide .slide__content {
+  --sidebar-target-width: max(20rem, 20vi);
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.browser-clips-slide figcaption {
+  text-align: center;
+}
+
+.browser-clips-slide .sidebar {
+  align-items: flex-end;
+}

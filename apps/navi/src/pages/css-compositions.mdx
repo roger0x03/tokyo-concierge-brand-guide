@@ -1,0 +1,261 @@
+---
+layout: '@layouts/NaviMarkdownPageLayout.astro'
+title: 'CSS Compositions'
+toc:
+  - text: 'Configuration'
+    slug: 'configuration'
+  - text: 'Gutters and Spacing'
+    slug: 'gutters-and-spacing'
+  - text: 'Justification and alignment'
+    slug: 'justification-and-alignment'
+  - text: 'Flow'
+    slug: 'flow'
+  - text: 'Grid'
+    slug: 'grid'
+  - text: 'Cluster'
+    slug: 'cluster'
+  - text: 'Repel'
+    slug: 'repel'
+  - text: 'Sidebar'
+    slug: 'sidebar'
+  - text: 'Switcher'
+    slug: 'switcher'
+  - text: 'Wrapper'
+    slug: 'wrapper'
+---
+
+import NaviCodeBlock from '@components/NaviCodeBlock.astro';
+import NaviPreviewFrame from '@components/NaviPreviewFrame.astro';
+
+These are flexible, compositional layouts that follow the [CUBE CSS composition principles](https://cube.fyi/composition.html).
+
+## Configuration
+
+If you want to change the value of a custom property, you can either set a value in your context, or target the composition itself (e.g. `.sidebar`) for extra specificity.
+
+The default values are fallbacks for custom properties, so are easily overridden.
+
+## Gutters and Spacing
+
+All compositions use a consistent `--gutter` Custom Property to manage spacing between items. You can either set a value for this in context, just like in the configuration section above.
+
+For example, you could increase the gutter on the sidebar like this:
+`<div class="sidebar gutter-xl">`.
+
+## Justification and Alignment
+
+Each composition has a vertical and horizontal alignment Custom Property **where applicable**.
+
+## Flow
+
+### `.flow`
+
+The flow utility provides flow and rhythm between direct sibling elements. Where `--flow-space` is not defined: the default value is `1em`, which equals the font size of the affected element.
+
+[More info](https://piccalil.li/blog/my-favourite-3-lines-of-css/)
+
+### Configuration
+
+| Property       | Default value | Description                         |
+|--------------|---------------|-------------------------------------|
+| `--flow-space` | `1em`         | Defines the space between each item. |
+
+### Example
+
+<NaviCodeBlock
+  lang="html"
+  code={`<article class="flow">
+    <p>Nullam id dolor id nibh ultricies vehicula ut id elit. Nulla vitae elit libero, a pharetra augue.</p>
+    <p>Nulla vitae elit libero, a pharetra augue. Cras justo odio, dapibus ac facilisis in, egestas eget quam.</p>
+    <p style="--flow-space: 3em">\`--flow-space\` set with an inline style to \`3em\`.</p>
+</article>`}
+/>
+
+<NaviPreviewFrame src="/layout-compositions/flow" />
+
+You can also use the `flow-space` generated utility that allows you to use
+the [spacing design tokens](/spacing/). For example, If you want that last paragraph
+to have a `XL` spacing, from the [space scale](/spacing/), you would change the code to the following:
+
+### Example
+
+<NaviCodeBlock
+  lang="html"
+  code={`<article class="flow">
+    <p>
+      Nullam id dolor id nibh ultricies vehicula ut id elit. Nulla vitae elit
+      libero, a pharetra augue.
+    </p>
+    <p>
+      Nulla vitae elit libero, a pharetra augue. Cras justo odio, dapibus ac
+      facilisis in, egestas eget quam.
+    </p>
+    <p class="flow-space-xl">
+      <code>--flow-space</code> is set to use XL on the <a href="/spacing/">spacing scale</a>, using the <code>flow-space-xl</code> utility class.
+    </p>
+</article>`}
+/>
+
+## Grid
+
+### `.grid`
+
+A flexible layout that will create an auto-fill grid with configurable grid item sizes.
+
+### Configuration
+
+| Property                | Default value      | Description                                 |
+|-------------------------|------------------|---------------------------------------------|
+| `--gutter`              | `var(--space-l)` | Defines the space between each item.       |
+| `--grid-min-item-size`  | `16rem`          | Minimum size of each grid item.            |
+| `--grid-placement`      | `auto-fill`      | Determines handling of empty grid tracks.  |
+
+### Exceptions
+
+| Exception | Attribute | Description |
+|-----------|-----------|-------------|
+| Thirds    | `data-layout="thirds"` | Layout will be a three-column grid. |
+| Halves    | `data-layout="50-50"` | Layout will be a two-column, 50-50 grid. |
+
+### Examples
+
+<NaviCodeBlock
+  lang="html"
+  code={`<div class="grid">
+    <div>Item 1</div>
+    <div>Item 2</div>
+    <div>Item 3</div>
+    <div>Item 4</div>
+    <div>Item 5</div>
+    <div>Item 6</div>
+    <div>Item 7</div>
+    <div>Item 8</div>
+</div>`}
+/>
+
+<NaviPreviewFrame src="/layout-compositions/grid" />
+
+## Cluster
+
+### `.cluster`
+
+A layout that lets you distribute items with consistent spacing, regardless of their size.
+
+### Configuration
+
+| Property                       | Default value        | Description                              |
+|--------------------------------|--------------------|------------------------------------------|
+| `--gutter`                     | `var(--space-m)`  | Defines the space between each item.    |
+| `--cluster-horizontal-alignment` | `flex-start`      | Horizontal alignment for items.        |
+| `--cluster-vertical-alignment`   | `center`          | Vertical alignment for items.          |
+
+### Examples
+
+<NaviCodeBlock
+  lang="html"
+  code={`<div class="cluster">
+    <div>Item 1</div>
+    <div>Item 2</div>
+    <div>Item 3</div>
+    <div>Item 4</div>
+    <div>Item 5</div>
+    <div>Item 6</div>
+    <div>Item 7</div>
+    <div>Item 8</div>
+</div>`}
+/>
+
+<NaviPreviewFrame src="/layout-compositions/cluster" />
+
+## Repel
+
+### `.repel`
+
+A layout that pushes items away from each other where there is space in the viewport and stacks on small viewports.
+
+### Configuration
+
+| Property                    | Default value     | Description                       |
+|-----------------------------|-----------------|-----------------------------------|
+| `--gutter`                  | `var(--space-l)` | Defines space between items.     |
+| `--repel-vertical-alignment` | `center`         | Defines vertical alignment.      |
+
+### Examples
+
+<NaviCodeBlock
+  lang="html"
+  code={`<div class="repel">
+    <div>Item 1 repels item 2</div>
+    <div>Item 2 repels item 1</div>
+</div>`}
+/>
+
+<NaviPreviewFrame src="/layout-compositions/repel" />
+
+## Sidebar
+
+### `.sidebar`
+
+A layout with a flexible main content area and a "fixed" width sidebar.
+
+### Configuration
+
+| Property                   | Default value      | Description                           |
+|----------------------------|------------------|---------------------------------------|
+| `--gutter`                 | `var(--space-s-l)` | Space between sidebar and content.   |
+| `--sidebar-target-width`   | `20rem`           | Size of the sidebar.                 |
+| `--sidebar-content-min-width` | `50%`          | Minimum size of the content area.   |
+
+### Examples
+
+<NaviCodeBlock
+  lang="html"
+  code={`<div class="sidebar">
+    <div>I am the sidebar</div>
+    <div class="flow">
+      <h4>I am the content</h4>
+      <p>Etiam porta sem malesuada magna mollis euismod.</p>
+    </div>
+</div>`}
+/>
+
+<NaviPreviewFrame src="/layout-compositions/sidebar" />
+
+## Switcher
+
+### `.switcher`
+
+A layout that allows you to lay **2** items next to each other until there is not enough horizontal space.
+
+### Configuration
+
+| Property                       | Default value      | Description                         |
+|--------------------------------|------------------|-------------------------------------|
+| `--gutter`                     | `var(--space-l)` | Defines space between each item.   |
+| `--switcher-vertical-alignment` | `flex-start`     | Defines vertical alignment.        |
+| `--switcher-target-container-width` | `40rem` | Size needed for items to be inline. |
+
+### Examples
+
+<NaviCodeBlock
+  lang="html"
+  code={`<div class="switcher">
+    <div>Item 1</div>
+    <div>Item 2</div>
+</div>`}
+/>
+
+<NaviPreviewFrame src="/layout-compositions/switcher" />
+
+## Wrapper
+
+### `.wrapper`
+
+A horizontally centered wrapper for consistent layout.
+
+<NaviCodeBlock
+  lang="html"
+  code={`<div class="wrapper">I am centered and have a nice, consistent gutter.</div>`}
+/>
+
+<NaviPreviewFrame src="/layout-compositions/wrapper" />
