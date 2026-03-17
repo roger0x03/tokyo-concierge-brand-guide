@@ -1,6 +1,10 @@
-# Zonaite
+# Tokyo Concierge Brand Guidelines 
 
-The Set Studio presentation and proposal deck system. It's called Zonaite because that's the material in Zelda that let's you build *anything*.
+You can host this guideline wherever you like as this system builds a static HTML, CSS and JavaScript website. 
+
+[Download the ZIP archive here](https://github.com/roger0x03/tokyo-concierge-brand-guide/blob/main/archive/dist.zip)
+
+Tip: this links to the GitHub location. If you hit cmd+shift+s on your keyboard, it will trigger a download.
 
 ## Getting Started
 
