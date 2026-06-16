@@ -1,7 +1,7 @@
 export const site = {
   title: 'Set.Studio',
-  footerHeading: 'Tokyo Concierge: Brand Guidelines',
-  footerByline: 'March 2026',
+  footerHeading: 'Concierge Network — Brand Guidelines',
+  footerByline: 'Jun 2026',
   allowRobots: false,
   summary: '',
   owner: {

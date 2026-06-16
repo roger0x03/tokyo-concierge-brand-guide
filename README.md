@@ -1,4 +1,4 @@
-# Tokyo Concierge Brand Guidelines 
+# Concierge Network Brand Guidelines 
 
 You can host this guideline wherever you like as this system builds a static HTML, CSS and JavaScript website. 
 
